@@ -47,6 +47,8 @@ public:
     int getNumVertices();
     std::vector<int> getNeighbours(int v);
     std::vector<int> getSelfLoops();
+    bool isIsolated(int v);
+    int getDegree(int v);
 };
 
 

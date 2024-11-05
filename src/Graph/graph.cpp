@@ -158,4 +158,12 @@ std::vector<int> Graph::getSelfLoops(){
     return this->selfLoops;
 }
 
+bool Graph::isIsolated(int v){
+    return this->adjList[v].size() == 0;
+}
+
+int Graph::getDegree(int v){
+    return this->adjList[v].size();
+}
+
 
