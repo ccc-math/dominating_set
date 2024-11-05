@@ -8,6 +8,7 @@ target_sources(dom_set_main PRIVATE
     main.cpp)
 target_link_libraries(dom_set_main PUBLIC
     graph
+    greedy
     )
 
 
