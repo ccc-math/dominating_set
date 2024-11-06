@@ -6,20 +6,33 @@
 #include "Algo/greedy.hpp"
 
 int main(){
-    
-    Graph G("../data/project_instances/4.graph");
-    std::vector<int> tmpG = greedy(G);
+    std::string filename = "../data/pace_2016_instances/hidden/1.graph";
+
+    Graph G1(filename);
+    std::vector<int> tmpG = greedy(G1);
     for(int i = 0; i < tmpG.size(); i++){
         std::cout << tmpG[i] << " ";
     }
     std::cout << std::endl;
     
+    Graph G2(filename);
+    tmpG = smartGreedy(G2);
+    for(int i = 0; i < tmpG.size(); i++){
+        std::cout << tmpG[i] << " ";
+    }
+    std::cout << std::endl;
 
+    Graph G3(filename);
+    tmpG = smarterGreedyHeap(G3);
+    for(int i = 0; i < tmpG.size(); i++){
+        std::cout << tmpG[i] << " ";
+    }
+    std::cout << std::endl;
 
-    Graph H("../data/project_instances/4.graph");
-    std::vector<int> tmpH = smartGreedy(H);
-    for(int i = 0; i < tmpH.size(); i++){
-        std::cout << tmpH[i] << " ";
+    Graph G4(filename);
+    tmpG = smarterBucketsOfBuckets(G4);
+    for(int i = 0; i < tmpG.size(); i++){
+        std::cout << tmpG[i] << " ";
     }
     std::cout << std::endl;
     return 0;
