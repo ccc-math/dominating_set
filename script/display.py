@@ -2,25 +2,17 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 def getCardGraph(filename):
-    """ Take a .graph file and return the number of vertices """
+    """ Take a .gr file and return the number of vertices """
     k = 0; node0 = False
     with open(filename, 'r') as f:
         for ligne in f:
             l = ligne.split()
-            if l[0] == '0' or l[1] == '0':
-                node0 = True
-            if k < int(l[0]):
-                k = int(l[0])
-            if k < int(l[1]):
-                k = int(l[1])
-    if node0:
-        return k+1
-    else:
-        return k
+            if l[0] == 'p':
+                return l[2]
 
 
 def createGraph(filename):
-    """ Take a .graph file and return the associated graph as in the networkx class """
+    """ Take a .gr file and return the associated graph as in the networkx class """
     G = nx.Graph()
     for i in range(1, getCardGraph(filename)):
         G.add_node(i)
@@ -28,7 +20,8 @@ def createGraph(filename):
     with open(filename, 'r') as f:
         for ligne in f:
             l = ligne.split()
-            G.add_edge(int(l[0]), int(l[1]))
+            if l[0] != 'c' or l[0] != 'p':
+                G.add_edge(int(l[0]), int(l[1]))
     return G
 
 
