@@ -65,7 +65,7 @@ std::vector<int> smartGreedy(Graph G){
 		}
 	}
 	return res;
-}
+};
 
 //////////////////////////////
 //   Methods for Binary Heap
@@ -160,7 +160,6 @@ void BinaryHeap::removeMax(){
 		std::pair<int, int> tmp = heap[numOfElements];
 		heap[numOfElements] = heap[0];
 		heap[0] = tmp;
-
 		this->pushDown(0);
 	}
 };
@@ -201,9 +200,10 @@ std::vector<int> smarterGreedyHeap(Graph G){
 		heap.addElement(i, degreeInG[i]);
 	}
 	// While the heap is not empty
+	std::pair<int, int> max;
 	while(heap.getNumberOfElements() > 0){
 		//heap.printHeap();
-		std::pair<int, int> max = heap.getMax();
+		max = heap.getMax();
 		// if the max is already dominated
 		if(isDom[max.first]){
 			heap.removeMax();
@@ -253,6 +253,7 @@ BucketsOfBuckets::BucketsOfBuckets(Graph G){
 	next_bucket = std::vector<int>(maxDegree + 1, -1);
 	pred_vertex = std::vector<int>(numOfElements, -1);
 	next_vertex = std::vector<int>(numOfElements, -1);
+
 	head = 0;
 	heads[0] = 0;
 	next_vertex[0] = 1;
@@ -294,6 +295,25 @@ void BucketsOfBuckets::printBucketsOfBuckets(){
 	std::cout << std::endl;
 };
 
+void BucketsOfBuckets::printBucketsOfBucketsV2(){
+	std::cout << "max degree      : " << maxDegree << std::endl;
+	std::cout << "num of elements : " << numOfElements << std::endl;
+	std::cout << "head            : " << head << std::endl;
+	int bucket = head;
+	while(bucket >= 0){
+		if(heads[bucket] >= 0){
+			std::cout << bucket << " | " << heads[bucket];
+			int next = next_vertex[heads[bucket]];
+			while(next >= 0){
+				std::cout << " -> " << next;
+				next = next_vertex[next];
+			}
+			std::cout << std::endl;
+		}
+		bucket = pred_bucket[bucket];
+	}
+};
+
 void BucketsOfBuckets::remove_bucket(int d){
 	if(pred_bucket[d] == -1){
 		if(next_bucket[d] == -1){	// d was the only bucket
@@ -310,7 +330,7 @@ void BucketsOfBuckets::remove_bucket(int d){
 		}
 		else{
 			pred_bucket[next_bucket[d]] = pred_bucket[d];
-			next_bucket[pred_bucket[d]] = next_vertex[d];
+			next_bucket[pred_bucket[d]] = next_bucket[d];
 		}
 	}
 	pred_bucket[d] = -1;
@@ -360,7 +380,7 @@ void BucketsOfBuckets::pushVertexUp(int v, int d){
 				next_bucket[d] = next_bucket[currentDegree[v]];
 				pred_bucket[next_bucket[currentDegree[v]]] = d;
 				next_bucket[currentDegree[v]] = d;
-				pred_bucket[d] = currentDegree[d];
+				pred_bucket[d] = currentDegree[v];
 				remove_vertex_from_bucket(v, currentDegree[v]);
 				heads[d] = v;
 				currentDegree[v] = d;
@@ -382,10 +402,9 @@ void BucketsOfBuckets::pushVertexUp(int v, int d){
 void BucketsOfBuckets::decreaseVertex(int v){
 	int degV = currentDegree[v];
 	if(pred_bucket[degV] == -1){ // v is in the lowest bucket
-		
 		heads[degV - 1] = v;
 		pred_bucket[degV] = degV - 1;
-		next_bucket[degV - 1] = degV;
+		next_bucket[degV - 1] = degV; // bug here
 		remove_vertex_from_bucket(v, degV);
 		currentDegree[v] = degV - 1; 
 	}
@@ -454,17 +473,13 @@ std::vector<int> smarterBucketsOfBuckets(Graph G){
 	std::vector<int> dom = {};
 	BucketsOfBuckets buckets(G);
 	std::vector<bool> isDom = std::vector<bool>(buckets.getNumberOfElements(), false);
-	
 	for(int i = 0; i < buckets.getNumberOfElements(); i++){
 		buckets.pushVertexUp(i, G.getDegree(i));
 	}
-
-
 	// from this points, the deta structure is fully built !
-	
 	while(buckets.getHead() >= 0){
 		std::vector<int> deleted = {};
-		int vertex = buckets.getHeadVertex();
+		int vertex = buckets.getHeadVertex();						
 		buckets.deleteVertex(vertex);
 		deleted.push_back(vertex);
 		dom.push_back(vertex);

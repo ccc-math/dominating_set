@@ -9,6 +9,7 @@ target_sources(dom_set_main PRIVATE
 target_link_libraries(dom_set_main PUBLIC
     graph
     greedy
+    genetic
     )
 
 

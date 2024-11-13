@@ -53,6 +53,7 @@ public:
 
 	// Methods
 	void printBucketsOfBuckets();
+	void printBucketsOfBucketsV2();
 	void remove_bucket(int d);
 	void remove_vertex_from_bucket(int v, int d);
 	void pushVertexUp(int v, int d);

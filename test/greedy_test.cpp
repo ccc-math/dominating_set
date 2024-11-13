@@ -3,17 +3,21 @@
 #include "Algo/greedy.hpp"
 #include <gtest/gtest.h>
 
+
+
 TEST(greedy,template)
 {
-    /*Graph G(DATA_PATH/"project_instances/3.graph"); //instance initialization
-    G.addEdge(1,3); //Instance modifications
-    EXPECT_EQ(G.hasEdge(1,3),true); /* TEST
-        expect_equality between function call and result
-        
+    std::string filename = "../data/project_instances/5.graph";
+    Graph G(filename);
+    BucketsOfBuckets buckets(G);
+    for(int i = 0; i < buckets.getNumberOfElements(); i++){
+        buckets.pushVertexUp(i, G.getDegree(i));
+    }
+    buckets.pushVertexUp(0, 9);
+    buckets.decreaseVertex(15);
+    buckets.decreaseVertex(15);
 
-    EXPECT_EQ(G.getNumVertices(),12);
-    EXPECT_EQ(G.hasEdge(0,1),true);
-
-    EXPECT_EQ()*/
+    int a = 1;
+    EXPECT_EQ(a, 1);
 
 }

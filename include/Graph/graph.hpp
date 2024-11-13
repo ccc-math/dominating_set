@@ -10,14 +10,13 @@
 #include <list>
 class Graph {
 private:
-    std::vector<std::vector<int>> adjMatrix;  // Adjacency matrix
     int numVertices;                          // Number of vertices
     std::vector<std::vector<int>> adjList;    // Adjacence 
-    std::vector<int> selfLoops;               // List of vertices with self loops
 
 public:
     // Constructor
     Graph(int vertices);
+    Graph(const Graph& G);
     // Read a graph from a PACE Challenge file 
     Graph(std::string filename);
 
@@ -31,22 +30,18 @@ public:
     // Delete all the edges with u as an endpoint
     void disconnectVertex(int u);
 
-    // Check if an edge exists between vertex u and vertex v
-    bool hasEdge(int u, int v);
-
     // Print the adjacency matrix
     void printGraph_console();
 
     // Get the number of vertices
     int vertexCount();
 
-    // Clear the graph by resetting the adjacency matrix
-    void clearGraph();
+    // Check if edge u v exists
+    bool hasEdge(int u, int v);
 
     // Getter 
-    int getNumVertices();
-    std::vector<int> getNeighbours(int v);
-    std::vector<int> getSelfLoops();
+    int getNumVertices() const;
+    std::vector<int> getNeighbours(int v) const;
     bool isIsolated(int v);
     int getDegree(int v);
 };
