@@ -7,8 +7,6 @@ project(dom_set LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 14)
 
 cmake_policy(SET CMP0135 NEW)
-set(DATA_PATH ${PROJECT_SOURCE_DIR}/data)
-add_compile_definitions(dom_set PRIVATE "DATA_PATH=\"${DATA_PATH}\"")
 
 # Enable output of compile commands during generation.
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

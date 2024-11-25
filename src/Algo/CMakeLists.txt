@@ -9,16 +9,16 @@ target_sources(genetic PRIVATE
 	genetic.cpp)
 
 target_link_libraries(greedy PUBLIC
-	graph)
+	data_types)
 
 target_link_libraries(genetic PUBLIC
-	graph)
+	data_types)
 
 target_include_directories(greedy PUBLIC
-	$(PROJECT_SOURCE_DIR)/include)
+	${PROJECT_SOURCE_DIR}/include)
 
 target_include_directories(genetic PUBLIC
-	$(PROJECT_SOURCE_DIR)/include)
+	${PROJECT_SOURCE_DIR}/include)
 
 
 

@@ -13,10 +13,10 @@ target_sources(greedy_test PRIVATE
 	greedy_test.cpp)
 
 target_link_libraries(graph_test 
-	graph
+	data_types
 	GTest::gtest_main)
 target_link_libraries(greedy_test 
-	graph
+	data_types
 	greedy
 	GTest::gtest_main)
 

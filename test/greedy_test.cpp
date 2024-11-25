@@ -9,7 +9,7 @@ TEST(greedy,template)
 {
     std::string filename = "../data/project_instances/5.graph";
     Graph G(filename);
-    BucketsOfBuckets buckets(G);
+    BucketsOfBuckets buckets(&G);
     for(int i = 0; i < buckets.getNumberOfElements(); i++){
         buckets.pushVertexUp(i, G.getDegree(i));
     }

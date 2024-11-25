@@ -5,7 +5,9 @@
 #include <vector>
 #include <utility>
 #include <iostream>
-#include "Graph/graph.hpp"
+#include "data_types/graph.hpp"
+#include "data_types/binaryHeap.hpp"
+#include "data_types/buckets.hpp"
 #include "Algo/greedy.hpp"
 
 

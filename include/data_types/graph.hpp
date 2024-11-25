@@ -11,6 +11,7 @@
 class Graph {
 private:
     int numVertices;                          // Number of vertices
+    int NumEdges;                             // Number of Edges
     std::vector<std::vector<int>> adjList;    // Adjacence 
 
 public:
@@ -24,8 +25,6 @@ public:
     // Add an edge between vertex u and vertex v
     void addEdge(int u, int v);
 
-    // Remove an edge between vertex u and vertex v
-    //void removeEdge(int u, int v);
 
     // Delete all the edges with u as an endpoint
     void disconnectVertex(int u);
@@ -40,8 +39,8 @@ public:
     bool hasEdge(int u, int v);
 
     // Getter 
-    int getNumVertices() const;
-    std::vector<int> getNeighbours(int v) const;
+    int getNumVertices();
+    std::vector<int> getNeighbours(int v);
     bool isIsolated(int v);
     int getDegree(int v);
 };

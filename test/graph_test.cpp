@@ -1,5 +1,5 @@
 
-#include "Graph/graph.hpp"
+#include "data_types/graph.hpp"
 #include <gtest/gtest.h>
 
 TEST(Graph,test1)
