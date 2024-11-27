@@ -2,7 +2,7 @@
 #include "Algo/genetic.hpp"
 
 
-
+/*
 std::vector<int> gradient(const Graph& G, int numberOfIteration){
 	std::cout << "yo\n";
 	int n = G.getNumVertices();
@@ -25,7 +25,7 @@ std::vector<int> gradient(const Graph& G, int numberOfIteration){
 	}
 	return best_dom;
 }
-
+*/
 std::vector<int> gradient(const Graph& G, int numberOfIteration){
 	int n = G.getNumVertices();
 	srand (time(NULL));

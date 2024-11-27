@@ -150,9 +150,9 @@ std::vector<int> smarterBucketsOfBuckets(Graph *G, std::vector<bool>forcedVertic
 	// from this points, the deta structure is fully built !
 	// We can put the forced vertices in the dominant
 
-	for(int i = 0; i < G.getNumVertices(); i++){
+	for(int i = 0; i < G->getNumVertices(); i++){
 		if(forcedVertices[i]){
-			
+			// TODO SOMETHING HERE
 		}
 	}
 
