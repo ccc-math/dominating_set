@@ -20,7 +20,7 @@ std::vector<int>smartGreedy(Graph G);
 std::vector<int>smarterGreedyHeap(Graph* G);
 
 
-std::vector<int>smarterBucketsOfBuckets(Graph *G);
+std::vector<int>smarterBucketsOfBuckets(Graph* G, std::vector<bool> forcedVertices);
 
 
 

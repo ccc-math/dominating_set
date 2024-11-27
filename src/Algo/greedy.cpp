@@ -123,7 +123,7 @@ std::vector<int> smarterGreedyHeap(Graph *G){
 // Smart Greedy with Buckets of Buckets
 /////////////////////////////////////////
 
-std::vector<int> smarterBucketsOfBuckets(Graph *G){
+std::vector<int> smarterBucketsOfBuckets(Graph *G, std::vector<bool>forcedVertices){
 	/*
 	
 	Here, we store the  current degree of non-dominated vertices in a double linked list of double linked list
@@ -140,6 +140,7 @@ std::vector<int> smarterBucketsOfBuckets(Graph *G){
 	remove an element knowing its degree : O(1)
 	Global costs of updates : O(m) (m : number of edges)
 	*/
+	// First, we put the the forced vertices in the dom set
 	std::vector<int> dom = {};
 	BucketsOfBuckets buckets(G);
 	std::vector<bool> isDom = std::vector<bool>(buckets.getNumberOfElements(), false);
@@ -147,6 +148,14 @@ std::vector<int> smarterBucketsOfBuckets(Graph *G){
 		buckets.pushVertexUp(i, G->getDegree(i));
 	}
 	// from this points, the deta structure is fully built !
+	// We can put the forced vertices in the dominant
+
+	for(int i = 0; i < G.getNumVertices(); i++){
+		if(forcedVertices[i]){
+			
+		}
+	}
+
 	while(buckets.getHead() >= 0){
 		std::vector<int> deleted = {};
 		int vertex = buckets.getHeadVertex();						

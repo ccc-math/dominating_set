@@ -8,6 +8,16 @@ Graph::Graph(int vertices) {
         adjList.resize(vertices, {}); // graph with no edge
 };
 
+Graph::Graph(const Graph&  G) {
+    numVertices = G.getNumVertices();
+    adjList.resize(numVertices, {});
+    for(int i = 0; i < numVertices; i++){
+        for(int v : G.getNeighbours(i)){
+            adjList[i].push_back(v);
+        }
+    }
+};
+
 
 Graph::Graph(std::string filename){
     // Open filename
@@ -120,12 +130,12 @@ int Graph::vertexCount() {
 
 
 
-int Graph::getNumVertices(){
+int Graph::getNumVertices() const{
     return this->numVertices;
 };
 
 
-std::vector<int> Graph::getNeighbours(int v){
+std::vector<int> Graph::getNeighbours(int v) const{
     return this->adjList[v];
 };
 

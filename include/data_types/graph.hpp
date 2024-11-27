@@ -39,8 +39,8 @@ public:
     bool hasEdge(int u, int v);
 
     // Getter 
-    int getNumVertices();
-    std::vector<int> getNeighbours(int v);
+    int getNumVertices() const;
+    std::vector<int> getNeighbours(int v) const;
     bool isIsolated(int v);
     int getDegree(int v);
 };

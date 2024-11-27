@@ -32,10 +32,15 @@ TEST(greedy,hidden_instances)
     for(int i = 1; i <= 130; i++){
         std::string filename = "../data/pace_2016_instances/hidden/"+std::to_string(i)+".graph";
         Graph G3(filename);
-        std::vector<int> tmpG3 = smarterGreedyHeap(G3);
+        std::vector<int> tmpG3 = smarterGreedyHeap(&G3);
 
         Graph G4(filename);
-        std::vector<int> tmpG4 = smarterBucketsOfBuckets(G4);
+        std::vector<bool> forcedVertices = {};
+        int n = G4.getNumVertices();
+        for(int i = 0; i < n; i++){
+            forcedVertices.push_back(false);
+        }
+        std::vector<int> tmpG4 = smarterBucketsOfBuckets(&G4, forcedVertices);
 
         EXPECT_EQ(isDominatingSet(G3, tmpG3), true);
         EXPECT_EQ(isDominatingSet(G4, tmpG4), true);
@@ -55,10 +60,15 @@ TEST(greedy,public_instances)
         }
         std::string filename = "../data/pace_2016_instances/public/"+str+".graph";
         Graph G3(filename);
-        std::vector<int> tmpG3 = smarterGreedyHeap(G3);
+        std::vector<int> tmpG3 = smarterGreedyHeap(&G3);
 
         Graph G4(filename);
-        std::vector<int> tmpG4 = smarterBucketsOfBuckets(G4);
+        std::vector<bool> forcedVertices = {};
+        int n = G4.getNumVertices();
+        for(int i = 0; i < n; i++){
+            forcedVertices.push_back(false);
+        }
+        std::vector<int> tmpG4 = smarterBucketsOfBuckets(&G4, forcedVertices);
 
         EXPECT_EQ(isDominatingSet(G3, tmpG3), true);
         EXPECT_EQ(isDominatingSet(G4, tmpG4), true);
