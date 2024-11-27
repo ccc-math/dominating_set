@@ -35,12 +35,7 @@ TEST(greedy,hidden_instances)
         std::vector<int> tmpG3 = smarterGreedyHeap(&G3);
 
         Graph G4(filename);
-        std::vector<bool> forcedVertices = {};
-        int n = G4.getNumVertices();
-        for(int i = 0; i < n; i++){
-            forcedVertices.push_back(false);
-        }
-        std::vector<int> tmpG4 = smarterBucketsOfBuckets(&G4, forcedVertices);
+        std::vector<int> tmpG4 = smarterBucketsOfBuckets(&G4, {});
 
         EXPECT_EQ(isDominatingSet(G3, tmpG3), true);
         EXPECT_EQ(isDominatingSet(G4, tmpG4), true);
@@ -63,12 +58,7 @@ TEST(greedy,public_instances)
         std::vector<int> tmpG3 = smarterGreedyHeap(&G3);
 
         Graph G4(filename);
-        std::vector<bool> forcedVertices = {};
-        int n = G4.getNumVertices();
-        for(int i = 0; i < n; i++){
-            forcedVertices.push_back(false);
-        }
-        std::vector<int> tmpG4 = smarterBucketsOfBuckets(&G4, forcedVertices);
+        std::vector<int> tmpG4 = smarterBucketsOfBuckets(&G4, {});
 
         EXPECT_EQ(isDominatingSet(G3, tmpG3), true);
         EXPECT_EQ(isDominatingSet(G4, tmpG4), true);

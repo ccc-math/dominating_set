@@ -5,6 +5,7 @@
 #include <vector>
 #include <utility>
 #include <iostream>
+#include <cmath>
 #include <stdlib.h>
 #include "data_types/graph.hpp"
 #include "data_types/binaryHeap.hpp"

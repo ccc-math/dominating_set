@@ -16,7 +16,7 @@ int main(){
     std::string filename;
     bool printlist = false;
     bool printsize = true;
-    int algo = 5; 
+    int algo = 0; 
 
     for(int i = 10; i <= 10; i++){
         std::string filename = "../data/pace_2016_instances/hidden/"+std::to_string(i)+".graph"; 
@@ -38,11 +38,7 @@ int main(){
         if(algo == 4 || algo == 0){
             Graph G4(filename);
             int n = G4.getNumVertices();
-            std::vector<bool> forcedVertices = {};
-            for(int i = 0; i < n; i++){
-                forcedVertices.push_back(false);
-            }
-            std::vector<int> tmpG4 = smarterBucketsOfBuckets(&G4, forcedVertices);
+            std::vector<int> tmpG4 = smarterBucketsOfBuckets(&G4, {});
             if(printlist){
                 for(int i = 0; i < tmpG4.size(); i++){
                     std::cout << tmpG4[i] << " ";
@@ -56,7 +52,7 @@ int main(){
         }
         if(algo == 5 || algo == 0){
             Graph G5(filename);
-            std::vector<int> tmpG5 = gradient(G5, 10);
+            std::vector<int> tmpG5 = gradient(G5, 1000);
             if(printlist){
                 for(int i = 0; i < tmpG5.size(); i++){
                     std::cout << tmpG5[i] << " ";
