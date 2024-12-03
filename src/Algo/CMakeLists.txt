@@ -21,6 +21,16 @@ target_include_directories(genetic PUBLIC
 	${PROJECT_SOURCE_DIR}/include)
 
 
+add_library(sat)
+
+
+target_sources(sat PRIVATE
+	sat.cpp)
+
+
+target_link_libraries(sat PUBLIC
+	data_types
+	or-tools::ortools)
 
 
 

@@ -1,8 +1,8 @@
-#ifndef GRAPH_H
-#define GRAPH_H
+#ifndef SAT_H
+#define SAT_H
 
 #include <stdlib.h>
-
+#include "data_types/graph.hpp"
 #include "or-tools/base/logging.h"
 #include "or-tools/sat/cp_model.h"
 #include "or-tools/sat/cp_model.pb.h"
@@ -12,3 +12,5 @@
 #include "or-tools/util/sorted_interval_list.h"
 
 std::vector<int>sat(Graph G);
+
+#endif

@@ -15,4 +15,5 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 add_subdirectory(src)
 add_subdirectory(extern)
 add_subdirectory(test)
+add_subdirectory(local)
 

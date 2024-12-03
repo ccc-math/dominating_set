@@ -9,3 +9,12 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 set(INSTALL_GTEST OFF)
 FetchContent_MakeAvailable(googletest)
+
+
+
+#FetchContent_Declare(
+#    or-tools
+#    GIT_REPOSITORY https://github.com/google/or-tools.git
+#)
+
+#FetchContent_MakeAvailable(or-tools)

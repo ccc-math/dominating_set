@@ -1,6 +1,6 @@
 /* Algorithm that solve the dominating set problem using the CP-SAT from OR-Tools library */
 #include "Algo/sat.hpp"
-#include ""
+
 
 
 std::vector<int> sat(Graph G){
