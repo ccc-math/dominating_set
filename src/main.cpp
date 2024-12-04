@@ -35,7 +35,25 @@ int main(){
                 std::cout << std::endl;
             }
         }
+
         if(algo == 4 || algo == 0){
+            std::cout << "yo\n";
+            Graph G3(filename);
+            std::vector<int> tmpG3 = smarterGreedyHeapV2(&G3);
+            if(printlist){
+                for(int i = 0; i < tmpG3.size(); i++){
+                    std::cout << tmpG3[i] << " ";
+                }
+                std::cout << std::endl;
+            }
+            if(printsize){
+                std::cout << tmpG3.size() << std::endl;
+                std::cout << std::endl;
+            }
+        }
+
+
+        if(algo == 5 || algo == 0){
             Graph G4(filename);
             int n = G4.getNumVertices();
             std::vector<int> tmpG4 = smarterBucketsOfBuckets(&G4, {});
@@ -50,7 +68,7 @@ int main(){
                 std::cout << std::endl;
             }
         }
-        if(algo == 5 || algo == 0){
+        if(algo == 7 || algo == 0){
             Graph G5(filename);
             std::vector<int> tmpG5 = gradient(G5, 1000);
             if(printlist){
