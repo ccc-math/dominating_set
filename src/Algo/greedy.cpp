@@ -131,26 +131,24 @@ std::vector<int> smarterGreedyHeapV2(Graph *G){
 	while(nonDominated > 0){
 		//heap.printHeap();
 		max = heap.getMax();
+		// if the current degree has changed, we update it
+		if(max.second != degreeInG[max.first]){
+			heap.setMax(max.first, degreeInG[max.first]);
+			heap.pushDown(0);
+		}
 		else{
-			// if the current degree has changed, we update it
-			if(max.second != degreeInG[max.first]){
-				heap.setMax(max.first, degreeInG[max.first]);
-				heap.pushDown(0);
-			}
-			else{
-				// otherwise we add the vertex to the dom set
-				dom.push_back(max.first)
-				heap.removeMax();
+			// otherwise we add the vertex to the dom set
+			dom.push_back(max.first);
+			heap.removeMax();
+			nonDominated--;
+			// and then we update the degrees
+			for(int u : G->getNeighbours(max.first)){
+				degreeInG[u]--;
 				nonDominated--;
-				// and then we update the degrees
-				for(int u : G->getNeighbours(max.first)){
-					degreeInG[u]--;
-					nonDominated--;
-					for(int nei : G.getNeighbours(u)){
-						degreeInG[nei]--;
-					}
-				} 
-			}
+				for(int nei : G->getNeighbours(u)){
+					degreeInG[nei]--;
+				}
+			} 
 		}
 	}
 
@@ -241,26 +239,10 @@ std::vector<int> smarterBucketsOfBuckets(Graph *G, std::vector<int>forcedVertice
 	return dom;
 }; 
 
-
+/*
 std::vector<int> smarterBucketsOfBucketsV2(Graph *G, std::vector<int>forcedVertices){
-	/*
-	
-	Here, we store the  current degree of non-dominated vertices in a double linked list of double linked list
-	a - b - d
-	 \ /
-	  c
-
-	In this graph, deg(a) = deg(c) = 2, deg(b) = 3, deg(d) = 1
-
-	The data structure is then 	3 : b
-								2 : a <-> c
-								1 : d
-
-	remove an element knowing its degree : O(1)
-	Global costs of updates : O(m) (m : number of edges)
-	*/
 	// First, we put the the forced vertices in the dom set
-	int nonDominated = G.getNumVertices();
+	int nonDominated = G->getNumVertices();
 	std::vector<int> dom = {};
 	BucketsOfBuckets buckets(G);
 	std::vector<bool> isInDom = std::vector<bool>(buckets.getNumberOfElements(), false);
@@ -272,7 +254,7 @@ std::vector<int> smarterBucketsOfBucketsV2(Graph *G, std::vector<int>forcedVerti
 	for(int u : forcedVertices){
 		// If u has not already been dominated :
 		dom.push_back(u);
-		isInDom[u] = true
+		isInDom[u] = true;
 		buckets.deleteVertex(u);
 		nonDominated--;
 		for(int v : G->getNeighbours(u)){
@@ -280,7 +262,7 @@ std::vector<int> smarterBucketsOfBucketsV2(Graph *G, std::vector<int>forcedVerti
 				nonDominated--;
 				buckets.decreaseVertex(v);
 				for(int nei : G->getNeighbours(v)){
-					if(!isInDom(nei)){
+					if(!isInDom[nei]){
 						buckets.decreaseVertex(nei);
 					}
 				}
@@ -292,13 +274,13 @@ std::vector<int> smarterBucketsOfBucketsV2(Graph *G, std::vector<int>forcedVerti
 		int vertex = buckets.getHeadVertex();						
 		buckets.deleteVertex(vertex);
 		dom.push_back(vertex);
-		isDom[vertex] = true;
+		isInDom[vertex] = true;
 		for(int v : G->getNeighbours(vertex)){
 			if(!isInDom[v]){
 				nonDominated--;
 				buckets.decreaseVertex(v);
 				for(int nei : G->getNeighbours(v)){
-					if(!isInDom(nei)){
+					if(!isInDom[nei]){
 						buckets.decreaseVertex(nei);
 					}
 				}
@@ -308,5 +290,5 @@ std::vector<int> smarterBucketsOfBucketsV2(Graph *G, std::vector<int>forcedVerti
 	}
 	return dom;
 }; 
-
+*/
 

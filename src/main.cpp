@@ -37,7 +37,6 @@ int main(){
         }
 
         if(algo == 4 || algo == 0){
-            std::cout << "yo\n";
             Graph G3(filename);
             std::vector<int> tmpG3 = smarterGreedyHeapV2(&G3);
             if(printlist){
@@ -68,6 +67,7 @@ int main(){
                 std::cout << std::endl;
             }
         }
+
         if(algo == 7 || algo == 0){
             Graph G5(filename);
             std::vector<int> tmpG5 = gradient(G5, 1000);
