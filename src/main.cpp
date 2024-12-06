@@ -17,7 +17,7 @@ int main(){
     bool printlist = false;
     bool printsize = true;
     int algo = 0; 
-
+/*
     for(int i = 10; i <= 10; i++){
         std::string filename = "../data/pace_2016_instances/hidden/"+std::to_string(i)+".graph"; 
         std::cout << i << "/" << 130 << std::endl;
@@ -82,6 +82,11 @@ int main(){
                 std::cout << std::endl;
             }
         }
-    }
+    }*/
+    std::string filename = "../data/pace_2016_instances/hidden/1.graph"; 
+    Graph G(filename);
+
+    std::vector<int> test=milp(G);
+
     return 0;
 };

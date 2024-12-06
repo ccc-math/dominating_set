@@ -10,6 +10,8 @@ target_link_libraries(dom_set_main PUBLIC
     data_types
     greedy
     genetic
+    milp
+
     )
 
 
