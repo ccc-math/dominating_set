@@ -5,6 +5,7 @@
 #include "data_types/graph.hpp"
 #include "Algo/greedy.hpp"
 #include "Algo/genetic.hpp"
+#include "Algo/milp.hpp"
 
 int main(){
     //std::string filename = "../data/project_instances/5.graph";
@@ -83,10 +84,17 @@ int main(){
             }
         }
     }*/
-    std::string filename = "../data/pace_2016_instances/hidden/1.graph"; 
+    filename = "../data/pace_2016_instances/public/090.graph"; 
     Graph G(filename);
 
-    std::vector<int> test=milp(G);
+    std::vector<int> test= milp(G);
+    std::cout << std::endl;
+    std::cout << std::endl;
+    //std::cout << test.size() << std::endl;
+    std::cout << std::endl;
+    for(int i; i < test.size(); i++){
+        //std::cout << test[i] << std::endl;
+    }
 
     return 0;
 };
