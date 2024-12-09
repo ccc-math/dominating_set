@@ -5,6 +5,7 @@
 #include "data_types/graph.hpp"
 #include "Algo/greedy.hpp"
 #include "Algo/genetic.hpp"
+#include "Algo/cp_sat.hpp"
 
 int main(){
     //std::string filename = "../data/project_instances/5.graph";
@@ -83,5 +84,21 @@ int main(){
             }
         }
     }
+
+/* NOT WORKING PROPERLY AS OF NOW, FIX TO BE DONE
+
+    std::string filename_cp_sat = "../data/project_instances/5.graph";
+    Graph G_cp_sat(filename);
+
+    std::vector<int> test_cp_sat = cp_sat(G_cp_sat);
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << test_cp_sat.size() << std::endl;
+    std::cout << std::endl;
+    for(int i; i < test_cp_sat.size(); i++){
+        std::cout << test_cp_sat[i] << std::endl;
+    }
+*/
+
     return 0;
 };
