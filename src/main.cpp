@@ -97,9 +97,8 @@ int main(){
         //std::cout << test[i] << std::endl;
     }
 */
-
     std::string filename_cp_sat = "../data/project_instances/5.graph";
-    Graph G_cp_sat(filename_cp_sat);
+    const Graph G_cp_sat(filename_cp_sat);
 
     std::vector<int> test_cp_sat = cp_sat(G_cp_sat);
     std::cout << std::endl;

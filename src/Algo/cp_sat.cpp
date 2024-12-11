@@ -12,10 +12,12 @@
 
 
 #include "Algo/cp_sat.hpp"
-using namespace operations_research::sat; // Temporary only for the toy example
 
+/*
+namespace operations_research {// Temporary only for the toy example
+namespace sat{*/
 std::vector<int> cp_sat(const Graph& G) {
-    /* ACTUAL PROGRAM, BUT FIRST, TRY WITH TOY EXAMPLE BELOW
+    /*ACTUAL PROGRAM, BUT FIRST, TRY WITH TOY EXAMPLE BELOW
     operations_research::sat::CpModelBuilder model; // Creating the model
     int n = G.getNumVertices();
     // Boolean vector containing the variables for the cp_sat algorithm
@@ -64,20 +66,20 @@ std::vector<int> cp_sat(const Graph& G) {
 
     return dom;*/
 
-  CpModelBuilder cp_model;
+  operations_research::sat::CpModelBuilder cp_model;
 
   const operations_research::Domain domain(0, 2);
-  const IntVar x = cp_model.NewIntVar(domain).WithName("x");
-  const IntVar y = cp_model.NewIntVar(domain).WithName("y");
-  const IntVar z = cp_model.NewIntVar(domain).WithName("z");
+  const  operations_research::sat::IntVar x = cp_model.NewIntVar(domain).WithName("x");
+  const  operations_research::sat::IntVar y = cp_model.NewIntVar(domain).WithName("y");
+  const  operations_research::sat::IntVar z = cp_model.NewIntVar(domain).WithName("z");
 
   cp_model.AddNotEqual(x, y);
 
   // Solving part.
-  const CpSolverResponse response = Solve(cp_model.Build());
+  const  operations_research::sat::CpSolverResponse response = Solve(cp_model.Build());
 
-  if (response.status() == CpSolverStatus::OPTIMAL ||
-      response.status() == CpSolverStatus::FEASIBLE) {
+  if (response.status() ==  operations_research::sat::CpSolverStatus::OPTIMAL ||
+      response.status() ==  operations_research::sat::CpSolverStatus::FEASIBLE) {
     // Get the value of x in the solution.
     LOG(INFO) << "x = " << SolutionIntegerValue(response, x);
     LOG(INFO) << "y = " << SolutionIntegerValue(response, y);

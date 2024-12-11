@@ -123,7 +123,9 @@ if(UNIX AND NOT APPLE)
         libscip.a
         libutf8_range.a
         libutf8_validity.a
-        libz.a)
+        libz.a
+        libortools.so
+        libortools_flatzinc.so)
 endif()
 add_dependencies(DominatingSet_ortools ORTools)
 add_library(DominatingSet::ortools ALIAS DominatingSet_ortools)

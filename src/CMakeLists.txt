@@ -10,5 +10,5 @@ target_link_libraries(dom_set_main PUBLIC
     greedy
     genetic
     milp
-    DominatingSet_cp_sat)
+    cp_sat)
 install(TARGETS dom_set_main)
