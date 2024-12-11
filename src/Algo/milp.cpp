@@ -1,11 +1,10 @@
 #include "Algo/milp.hpp"
 
 
-
-std::vector<int> milp(Graph G){
+std::vector<int> milp(const Graph& G, const double& time){
     std::vector<int> dom = {};
-    int n = G.getNumVertices(); // Cardinal de V
-    std::vector<std::vector<int>> adj = {}; // Vecteurs de binaire listes d'adjacences pour le sommet i
+    const int n = G.getNumVertices();
+    std::vector<std::vector<int>> adj = {}; // Vector containing all adjacency lists
     for (int i = 0; i < n; i++){
         std::vector<int> tmp = {};
         std::vector<int> neighbors = G.getNeighbours(i);
@@ -59,88 +58,40 @@ std::vector<int> milp(Graph G){
     model.lp_.a_matrix_.value_ = value;
 
     Highs highs;
+
+    highs.setOptionValue("time_limit", time);
+
     HighsStatus return_status;
-    //
+
     // Pass the model to HiGHS
     return_status = highs.passModel(model);
-    //assert(return_status == HighsStatus::kOk);
-    // If a user passes a model with entries in
-    // model.lp_.a_matrix_.value_ less than (the option)
-    // small_matrix_value in magnitude, they will be ignored. A logging
-    // message will indicate this, and passModel will return
-    // HighsStatus::kWarning
-    //
-    // Get a const reference to the LP data in HiGHS
+
     const HighsLp& lp = highs.getLp();
-    //
+
     // Solve the model
     return_status = highs.run();
-    //assert(return_status == HighsStatus::kOk);
-    //
-    // Get the model status
-    const HighsModelStatus& model_status = highs.getModelStatus();
-    //assert(model_status == HighsModelStatus::kOptimal);
-    //std::cout << "Model status: " << highs.modelStatusToString(model_status) << std::endl;
-    //
+
     // Get the solution information
     const HighsInfo& info = highs.getInfo();
-    //std::cout << "Simplex iteration count: " << info.simplex_iteration_count << std::endl;
-    //std::cout << "Objective function value: " << info.objective_function_value << std::endl;
-    //std::cout << "Primal  solution status: " << highs.solutionStatusToString(info.primal_solution_status) << std::endl;
-    //std::cout << "Dual    solution status: " << highs.solutionStatusToString(info.dual_solution_status) << std::endl;
-    //std::cout << "Basis: " << highs.basisValidityToString(info.basis_validity) << std::endl;
-    const bool has_values = info.primal_solution_status;
-    const bool has_duals = info.dual_solution_status;
-    const bool has_basis = info.basis_validity;
-    //
+
     // Get the solution values and basis
     const HighsSolution& solution = highs.getSolution();
-    const HighsBasis& basis = highs.getBasis();
-    //
-    // Report the primal and solution values and basis
-    /*
-    for (int col = 0; col < lp.num_col_; col++) {
-        std::cout << "Column " << col;
-        if (has_values) std::cout << "; value = " << solution.col_value[col];
-        if (has_duals) std::cout << "; dual = " << solution.col_dual[col];
-        if (has_basis) std::cout << "; status: " << highs.basisStatusToString(basis.col_status[col]);
-        std::cout << std::endl;
-    }
-    for (int row = 0; row < lp.num_row_; row++) {
-        std::cout << "Row    " << row;
-        if (has_values) std::cout << "; value = " << solution.row_value[row];
-        if (has_duals) std::cout << "; dual = " << solution.row_dual[row];
-        if (has_basis) std::cout << "; status: " << highs.basisStatusToString(basis.row_status[row]);
-        std::cout << std::endl;
-    }
-    */
 
     // Now indicate that all the variables must take integer values
     model.lp_.integrality_.resize(lp.num_col_);
-    for (int col = 0; col < lp.num_col_; col++)
-        model.lp_.integrality_[col] = HighsVarType::kInteger;
+    for (int i = 0; i < lp.num_col_; i++)
+        model.lp_.integrality_[i] = HighsVarType::kInteger;
 
     highs.passModel(model);
+
     // Solve the model
     return_status = highs.run();
-    //assert(return_status == HighsStatus::kOk);
-    // Report the primal solution values
-    for (int col = 0; col < lp.num_col_; col++) {
-        //std::cout << "Column " << col;
-        if (info.primal_solution_status)
-            //std::cout << "; value = " << solution.col_value[col];
-            if (solution.col_value[col] > 0.1) {
-                dom.push_back(col);
+
+    for (int i = 0; i < lp.num_col_; i++) {
+        if (info.primal_solution_status && solution.col_value[i] > 0.1) {
+                dom.push_back(i);
             }
-        //std::cout << std::endl;
-    }
-    for (int row = 0; row < lp.num_row_; row++) {
-        //std::cout << "Row    " << row;
-        if (info.primal_solution_status) {}
-        //std::cout << "; value = " << solution.row_value[row];
-        //std::cout << std::endl;
     }
 
-    std::cout << n << std::endl;
     return dom;
 }

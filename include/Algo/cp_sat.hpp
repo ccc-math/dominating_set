@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdlib.h>
+
 //Data dependencies
 #include "data_types/graph.hpp"
 #include "data_types/binaryHeap.hpp"
@@ -23,5 +25,7 @@
 #include "ortools/sat/cp_model_solver.h"
 #include "ortools/sat/sat_parameters.pb.h"
 #include "ortools/sat/util.h"
+#include "ortools/util/sorted_interval_list.h"
 
-std::vector<int> cp_sat(const Graph& G);
+
+std::vector<int> cp_sat(const Graph& G, const double& time);

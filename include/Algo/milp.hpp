@@ -10,7 +10,7 @@
 
 
 
-std::vector<int>milp(Graph G);
+std::vector<int>milp(const Graph& G, const double& time);
 
 
 #endif

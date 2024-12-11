@@ -14,7 +14,6 @@ int main(){
     //std::string filename = "../data/pace_2016_instances/hidden/1.graph";
     //std::string filename = "../data/pace_2016_instances/hidden/3.graph"; 
 
-/*
     std::string filename;
     bool printlist = false;
     bool printsize = true;
@@ -85,30 +84,16 @@ int main(){
             }
         }
     }
-    filename = "../data/pace_2016_instances/public/090.graph"; 
-    Graph G(filename);
 
-    std::vector<int> test= milp(G);
-    std::cout << std::endl;
-    std::cout << std::endl;
-    //std::cout << test.size() << std::endl;
-    std::cout << std::endl;
-    for(int i; i < test.size(); i++){
-        //std::cout << test[i] << std::endl;
-    }
-*/
-    std::string filename_cp_sat = "../data/project_instances/5.graph";
-    const Graph G_cp_sat(filename_cp_sat);
+    const double time = 10.0;
+    filename = "../data/pace_2016_instances/public/091.graph";
+    const Graph G(filename);
 
-    std::vector<int> test_cp_sat = cp_sat(G_cp_sat);
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << test_cp_sat.size() << std::endl;
-    std::cout << std::endl;
-    for(int i; i < test_cp_sat.size(); i++){
-        std::cout << test_cp_sat[i] << std::endl;
-    }
+    std::vector<int> test_milp = milp(G, time);
+    std::vector<int> test_cp_sat = cp_sat(G, time);
 
+    std::cout << "Optimal size of dominating set for CP SAT : " << test_cp_sat.size() << std::endl;
+    std::cout << "Optimal size of dominating set for MILP : " << test_milp.size() << std::endl;
 
     return 0;
 };

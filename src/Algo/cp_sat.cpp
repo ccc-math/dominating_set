@@ -1,23 +1,6 @@
-/*
-    THERE IS CURRENTLY A PROBLEM WITH DEPENDENCIES THAT NEEDS TO BE FIXED.
-
-    THE ALGORITHM IS CURRENTLY IN COMMENT, WHILE THE CODE IN THE FUNCTION IS THE TOY EXAMPLE
-    COMING FROM OR-TOOLS.
-
-
-*/
-
-
-
-
-
 #include "Algo/cp_sat.hpp"
 
-/*
-namespace operations_research {// Temporary only for the toy example
-namespace sat{*/
-std::vector<int> cp_sat(const Graph& G) {
-    /*ACTUAL PROGRAM, BUT FIRST, TRY WITH TOY EXAMPLE BELOW
+std::vector<int> cp_sat(const Graph& G, const double& time) {
     operations_research::sat::CpModelBuilder model; // Creating the model
     int n = G.getNumVertices();
     // Boolean vector containing the variables for the cp_sat algorithm
@@ -40,54 +23,35 @@ std::vector<int> cp_sat(const Graph& G) {
         for (int j = 0; j < tmp.size(); j++) {
             clause.push_back(isDominating[tmp[j]]);
         }
-
         model.AddBoolOr(clause);
     }
 
+    // Minimizing the number of elements in the dominating set
+    model.Minimize(operations_research::sat::LinearExpr::Sum(isDominating));
+
     // Execute the solver
+    operations_research::sat::Model model_parameters;
     const operations_research::sat::CpSolverResponse response = Solve(model.Build());
+
+    // Sets a time limit
+    operations_research::sat::SatParameters parameters;
+    parameters.set_max_time_in_seconds(time);
+    model_parameters.Add(NewSatParameters(parameters));
 
     if (response.status() == operations_research::sat::CpSolverStatus::OPTIMAL ||
         response.status() == operations_research::sat::CpSolverStatus::FEASIBLE) {
         if (response.status() == operations_research::sat::CpSolverStatus::OPTIMAL) {
-            LOG(INFO) << "Optimal solution.";
+            std::cout << "Optimal solution." << std::endl;
         }
-
         // If a solution is found is at least feasible
         for (int i = 0; i < n; i++){
             if (operations_research::sat::SolutionBooleanValue(response, isDominating[i])) {
                 dom.push_back(i);
             }
         }
-
     } else {
-        LOG(INFO) << "No solution found.";
+        std::cout << "No solution found." << std::endl;
     }
 
-    return dom;*/
-
-  operations_research::sat::CpModelBuilder cp_model;
-
-  const operations_research::Domain domain(0, 2);
-  const  operations_research::sat::IntVar x = cp_model.NewIntVar(domain).WithName("x");
-  const  operations_research::sat::IntVar y = cp_model.NewIntVar(domain).WithName("y");
-  const  operations_research::sat::IntVar z = cp_model.NewIntVar(domain).WithName("z");
-
-  cp_model.AddNotEqual(x, y);
-
-  // Solving part.
-  const  operations_research::sat::CpSolverResponse response = Solve(cp_model.Build());
-
-  if (response.status() ==  operations_research::sat::CpSolverStatus::OPTIMAL ||
-      response.status() ==  operations_research::sat::CpSolverStatus::FEASIBLE) {
-    // Get the value of x in the solution.
-    LOG(INFO) << "x = " << SolutionIntegerValue(response, x);
-    LOG(INFO) << "y = " << SolutionIntegerValue(response, y);
-    LOG(INFO) << "z = " << SolutionIntegerValue(response, z);
-  } else {
-    LOG(INFO) << "No solution found.";
-  }
-
-    std::vector<int> dom = {};
     return dom;
 }
