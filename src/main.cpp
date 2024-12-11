@@ -14,12 +14,12 @@ int main(){
     //std::string filename = "../data/pace_2016_instances/hidden/1.graph";
     //std::string filename = "../data/pace_2016_instances/hidden/3.graph"; 
 
-
+/*
     std::string filename;
     bool printlist = false;
     bool printsize = true;
     int algo = 0; 
-/*
+
     for(int i = 10; i <= 10; i++){
         std::string filename = "../data/pace_2016_instances/hidden/"+std::to_string(i)+".graph"; 
         std::cout << i << "/" << 130 << std::endl;
@@ -84,7 +84,7 @@ int main(){
                 std::cout << std::endl;
             }
         }
-    }*/
+    }
     filename = "../data/pace_2016_instances/public/090.graph"; 
     Graph G(filename);
 
@@ -96,8 +96,7 @@ int main(){
     for(int i; i < test.size(); i++){
         //std::cout << test[i] << std::endl;
     }
-
-/* NOT WORKING PROPERLY AS OF NOW, FIX TO BE DONE
+*/
 
     std::string filename_cp_sat = "../data/project_instances/5.graph";
     Graph G_cp_sat(filename);
@@ -110,7 +109,7 @@ int main(){
     for(int i; i < test_cp_sat.size(); i++){
         std::cout << test_cp_sat[i] << std::endl;
     }
-*/
+
 
     return 0;
 };

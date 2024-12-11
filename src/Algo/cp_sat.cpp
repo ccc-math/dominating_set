@@ -15,7 +15,7 @@
 using namespace operations_research::sat; // Temporary only for the toy example
 
 std::vector<int> cp_sat(const Graph& G) {
-    /*
+    /* ACTUAL PROGRAM, BUT FIRST, TRY WITH TOY EXAMPLE BELOW
     operations_research::sat::CpModelBuilder model; // Creating the model
     int n = G.getNumVertices();
     // Boolean vector containing the variables for the cp_sat algorithm
