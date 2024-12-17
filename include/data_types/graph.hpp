@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <list>
+
 class Graph {
 private:
     int numVertices;                          // Number of vertices

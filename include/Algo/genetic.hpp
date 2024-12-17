@@ -14,7 +14,7 @@
 
 
 
-std::vector<int> gradient(const Graph& G, int numberOfIteration);
+Output gradient(const Graph& G, int numberOfIteration);
 
 
 

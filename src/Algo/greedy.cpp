@@ -5,8 +5,9 @@
 
 
 
-std::vector<int> greedy(Graph* G){
-	std::vector<int> dom = {};
+
+Output greedy(Graph* G){
+	Output dom;
 	std::vector<bool> isDom = {};
 	int n = G->getNumVertices();
 	for(int i = 0; i < n; i++){
@@ -14,7 +15,7 @@ std::vector<int> greedy(Graph* G){
 	}
 	for(int i = 0; i < n; i++){
 		if(!isDom[i]){
-			dom.push_back(i);
+			dom.add(i);
 			isDom[i] = true;
 			for(int u : G->getNeighbours(i)){
 				isDom[u] = true;
@@ -26,7 +27,7 @@ std::vector<int> greedy(Graph* G){
 
 
 
-std::vector<int> smartGreedy(Graph* G){
+Output smartGreedy(Graph* G){
 	int n = G->getNumVertices();
 	std::vector<bool>dom(n, false);
 	std::vector<bool>isDom(n, false);
@@ -59,10 +60,10 @@ std::vector<int> smartGreedy(Graph* G){
 			G->disconnectVertex(maxDegVertex);
 		}
 	}
-	std::vector<int> res = {};
+	Output res;
 	for(int i = 0; i < n; i++){
 		if(dom[i]){
-			res.push_back(i);
+			res.add(i);
 		}
 	}
 	return res;
@@ -74,10 +75,10 @@ std::vector<int> smartGreedy(Graph* G){
 //   Smart Greedy with Heap
 //////////////////////////////
 
-std::vector<int> smarterGreedyHeap(Graph *G){
+Output smarterGreedyHeap(Graph *G){
 	int n = G->getNumVertices();
 	std::vector<bool> isDom(n, false);
-	std::vector<int> dom = {};
+	Output dom ;
 	std::vector<int> degreeInG(n, 0);
 	BinaryHeap heap(n);
 	for(int i = 0; i < n; i++){
@@ -101,7 +102,7 @@ std::vector<int> smarterGreedyHeap(Graph *G){
 			}
 			// otherwise we add the vertex to the dom set
 			else{
-				dom.push_back(max.first);
+				dom.add(max.first);
 				for(int u : G->getNeighbours(max.first)){
 					isDom[u] = true;
 					G->disconnectVertex(u);
@@ -116,11 +117,11 @@ std::vector<int> smarterGreedyHeap(Graph *G){
 	return dom;
 }; 
 
-std::vector<int> smarterGreedyHeapV2(const Graph& G){
+Output smarterGreedyHeapV2(const Graph& G){
 	int n = G.getNumVertices();
 	int nonDominated = n;
 	std::vector<bool> isInDom(n, false);
-	std::vector<int> dom = {};
+	Output dom;
 	std::vector<int> degreeInG(n, 0);
 	BinaryHeap heap(n);
 	for(int i = 0; i < n; i++){
@@ -139,7 +140,7 @@ std::vector<int> smarterGreedyHeapV2(const Graph& G){
 		}
 		else{
 			// otherwise we add the vertex to the dom set
-			dom.push_back(max.first);
+			dom.add(max.first);
 			heap.removeMax();
 			nonDominated--;
 			// and then we update the degrees
@@ -163,8 +164,7 @@ std::vector<int> smarterGreedyHeapV2(const Graph& G){
 /////////////////////////////////////////
 // Smart Greedy with Buckets of Buckets
 /////////////////////////////////////////
-
-std::vector<int> smarterBucketsOfBuckets(const Graph& G, std::vector<int>forcedVertices){
+Output smarterBucketsOfBuckets(const Graph& G, std::vector<int>forcedVertices){
 	/*
 	
 	Here, we store the  current degree of non-dominated vertices in a double linked list of double linked list
@@ -182,7 +182,7 @@ std::vector<int> smarterBucketsOfBuckets(const Graph& G, std::vector<int>forcedV
 	Global costs of updates : O(m) (m : number of edges)
 	*/
 	// First, we put the the forced vertices in the dom set
-	std::vector<int> dom = {};
+	Output dom;
 	BucketsOfBuckets buckets(G);
 	std::vector<bool> isDom = std::vector<bool>(buckets.getNumberOfElements(), false);
 	for(int i = 0; i < buckets.getNumberOfElements(); i++){
@@ -195,7 +195,7 @@ std::vector<int> smarterBucketsOfBuckets(const Graph& G, std::vector<int>forcedV
 		std::vector<int> deleted = {};
 		if(!isDom[u]){
 			isDom[u] = true;
-			dom.push_back(u);
+			dom.add(u);
 			buckets.deleteVertex(u);
 			deleted.push_back(u);
 		}
@@ -220,7 +220,7 @@ std::vector<int> smarterBucketsOfBuckets(const Graph& G, std::vector<int>forcedV
 		int vertex = buckets.getHeadVertex();						
 		buckets.deleteVertex(vertex);
 		deleted.push_back(vertex);
-		dom.push_back(vertex);
+		dom.add(vertex);
 		isDom[vertex] = true;
 		for(int v : G.getNeighbours(vertex)){
 			if(!isDom[v]){

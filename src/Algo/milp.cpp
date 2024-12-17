@@ -1,8 +1,8 @@
 #include "Algo/milp.hpp"
 
 
-std::vector<int> milp(const Graph& G, const double& time){
-    std::vector<int> dom = {};
+Output milp(const Graph& G, const double& time){
+    Output dom;
     const int n = G.getNumVertices();
     std::vector<std::vector<int>> adj = {}; // Vector containing all adjacency lists
     for (int i = 0; i < n; i++){
@@ -90,7 +90,7 @@ std::vector<int> milp(const Graph& G, const double& time){
 
     for (int i = 0; i < lp.num_col_; i++) {
         if (info.primal_solution_status && solution.col_value[i] > 0.1) {
-                dom.push_back(i);
+                dom.add(i);
             }
     }
 

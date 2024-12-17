@@ -8,22 +8,23 @@
 #include "data_types/graph.hpp"
 #include "data_types/binaryHeap.hpp"
 #include "data_types/buckets.hpp"
+#include "data_types/output.hpp"
 
 
 
-std::vector<int>greedy(Graph G);
+Output greedy(Graph G);
 
-std::vector<int>smartGreedy(Graph G);
-
-
-std::vector<int>smarterGreedyHeap(Graph* G);
-
-std::vector<int>smarterGreedyHeapV2(const Graph& G);
+Output smartGreedy(Graph G);
 
 
-std::vector<int>smarterBucketsOfBuckets(const Graph& G, std::vector<int> forcedVertices);
+Output smarterGreedyHeap(Graph* G);
 
-std::vector<int>smarterBucketsOfBucketsV2(Graph* G, std::vector<int> forcedVertices);
+Output smarterGreedyHeapV2(const Graph& G);
+
+
+Output smarterBucketsOfBuckets(const Graph& G, std::vector<int> forcedVertices);
+
+Output smarterBucketsOfBucketsV2(Graph* G, std::vector<int> forcedVertices);
 
 
 

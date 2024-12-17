@@ -4,22 +4,27 @@ enable_testing()
 include(GoogleTest)
 
 
-add_executable(graph_test)
-add_executable(greedy_test)
+add_executable(data_types_test)
+add_executable(algo_test)
 
-target_sources(graph_test PRIVATE
-	graph_test.cpp)
-target_sources(greedy_test PRIVATE
-	greedy_test.cpp)
+target_sources(data_types_test PRIVATE
+	data_types_test.cpp)
+target_sources(algo_test PRIVATE
+	algo_test.cpp)
 
-target_link_libraries(graph_test 
+target_link_libraries(data_types_test 
 	data_types
 	GTest::gtest_main)
-target_link_libraries(greedy_test 
+target_link_libraries(algo_test 
 	data_types
 	greedy
+	genetic
+	milp
+	cp_sat
 	GTest::gtest_main)
 
 
-gtest_discover_tests(graph_test greedy_test 
+gtest_discover_tests(data_types_test algo_test
 WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
+

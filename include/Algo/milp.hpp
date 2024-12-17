@@ -6,11 +6,12 @@
 #include <utility>
 #include <iostream>
 #include "data_types/graph.hpp"
+#include "data_types/output.hpp"
 #include <Highs.h>
 
 
 
-std::vector<int>milp(const Graph& G, const double& time);
+Output milp(const Graph& G, const double& time);
 
 
 #endif

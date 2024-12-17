@@ -13,7 +13,7 @@
 namespace po = boost::program_options;
 
 
-std::vector<int> run(
+Output run(
         const Graph& instance,
         const po::variables_map& vm)
 {
@@ -25,9 +25,9 @@ std::vector<int> run(
         if(type == "heap"){
             return smarterGreedyHeapV2(instance);
         }
-        /*else if(version == "bucket"){
-            return smarterBucketsOfBuckets(instance);
-        }*/
+        else if(type == "bucket"){
+            //return smarterBucketsOfBuckets(instance);
+        }
         
     } 
     if(algorithm == "milp"){
@@ -68,8 +68,8 @@ int main(int argc, char *argv[])
     const Graph instance(
             vm["input"].as<std::string>());
     // Run.
-    std::vector<int> output = run(instance, vm);
-    std::cout<<output.size()<<std::endl;
+    Output output = run(instance, vm);
+    std::cout<<output.get_size()<<std::endl;
     
 
     return 0;
