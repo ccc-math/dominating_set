@@ -30,19 +30,19 @@ public:
     void disconnectVertex(int u);
 
     // Print the adjacency matrix
-    void printGraph_console();
+    void printGraph_console() const;
 
     // Get the number of vertices
-    int vertexCount();
+    int vertexCount()const;
 
     // Check if edge u v exists
-    bool hasEdge(int u, int v);
+    bool hasEdge(int u, int v)const;
 
     // Getter 
     int getNumVertices() const;
     std::vector<int> getNeighbours(int v) const;
-    bool isIsolated(int v);
-    int getDegree(int v);
+    bool isIsolated(int v)const;
+    int getDegree(int v)const;
 };
 
 

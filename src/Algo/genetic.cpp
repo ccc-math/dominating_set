@@ -8,8 +8,8 @@
 std::vector<int> gradient(const Graph& G, int numberOfIteration){
 	int n = G.getNumVertices();
 	srand (time(NULL));
-	Graph Gprime(G);
-	std::vector<int>best_dom = smarterBucketsOfBuckets(&Gprime, {});
+	const Graph Gprime(G);
+	std::vector<int>best_dom = smarterBucketsOfBuckets(Gprime, {});
 	
 	for(int i = 0; i < numberOfIteration; i++){
 		std::vector<int>rand_dom = best_dom;
@@ -21,8 +21,8 @@ std::vector<int> gradient(const Graph& G, int numberOfIteration){
 			rand_dom.pop_back();
 		}
 		
-		Graph G_loc(G);
-		std::vector<int> loc_dom = smarterBucketsOfBuckets(&G_loc, rand_dom);
+		const Graph G_loc(G);
+		std::vector<int> loc_dom = smarterBucketsOfBuckets(G_loc, rand_dom);
 		if(loc_dom.size() < best_dom.size()){
 			best_dom = loc_dom;
 		}

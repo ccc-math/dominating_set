@@ -100,7 +100,7 @@ void Graph::disconnectVertex(int u){  // Delete all the edges aroud u
     adjList[u] = {};
 }
 
-bool Graph::hasEdge(int u, int v) {
+bool Graph::hasEdge(int u, int v) const {
         if (u >= 0 && u < numVertices && v >= 0 && v < numVertices) {
             if(not(findPosElement(u,adjList[v])))
             {
@@ -113,7 +113,7 @@ bool Graph::hasEdge(int u, int v) {
         return false;
     };
 
-void Graph::printGraph_console() {
+void Graph::printGraph_console() const {
         std::cout << "Adjacency list:" << std::endl;
         for (int i = 0; i < numVertices; ++i){
             std::cout << i << " :";
@@ -124,7 +124,7 @@ void Graph::printGraph_console() {
         }
     };
 
-int Graph::vertexCount() {
+int Graph::vertexCount()const  {
         return numVertices;
     };
 
@@ -140,11 +140,11 @@ std::vector<int> Graph::getNeighbours(int v) const{
 };
 
 
-bool Graph::isIsolated(int v){
+bool Graph::isIsolated(int v)const {
     return this->adjList[v].size() == 0;
 }
 
-int Graph::getDegree(int v){
+int Graph::getDegree(int v)const {
     return this->adjList[v].size();
 }
 

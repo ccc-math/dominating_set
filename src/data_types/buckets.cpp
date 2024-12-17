@@ -5,15 +5,15 @@
 ///////////////////////////////////
 
 // Constructor
-BucketsOfBuckets::BucketsOfBuckets(Graph* G){
+BucketsOfBuckets::BucketsOfBuckets(const Graph& G){
 	maxDegree = -1;
-	numOfElements = G->getNumVertices();
+	numOfElements = G.getNumVertices();
 	currentDegree = {};
 	// Current degrees : 
 	for(int i = 0; i < numOfElements; i++){
 		currentDegree.push_back(0);  // at first, we put all vertices in bucket 0 like they were of degree 0, it will be corrected with another method
-		if(maxDegree < G->getDegree(i)){
-			maxDegree = G->getDegree(i);
+		if(maxDegree < G.getDegree(i)){
+			maxDegree = G.getDegree(i);
 		}
 	}
 	// Construction of the buckets : We put all vertices in the bucket 0, and we will correct it in another method

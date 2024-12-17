@@ -23,7 +23,7 @@ private:
 	std::vector<int> currentDegree;
 public:
 	// Constructor
-	BucketsOfBuckets(Graph *G);
+	BucketsOfBuckets(const Graph& G);
 
 	// Methods
 	void printBucketsOfBuckets();

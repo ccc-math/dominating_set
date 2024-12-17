@@ -25,6 +25,7 @@ std::vector<int> greedy(Graph* G){
 }
 
 
+
 std::vector<int> smartGreedy(Graph* G){
 	int n = G->getNumVertices();
 	std::vector<bool>dom(n, false);
@@ -115,15 +116,15 @@ std::vector<int> smarterGreedyHeap(Graph *G){
 	return dom;
 }; 
 
-std::vector<int> smarterGreedyHeapV2(Graph *G){
-	int n = G->getNumVertices();
+std::vector<int> smarterGreedyHeapV2(const Graph& G){
+	int n = G.getNumVertices();
 	int nonDominated = n;
 	std::vector<bool> isInDom(n, false);
 	std::vector<int> dom = {};
 	std::vector<int> degreeInG(n, 0);
 	BinaryHeap heap(n);
 	for(int i = 0; i < n; i++){
-		degreeInG[i] = G->getDegree(i);
+		degreeInG[i] = G.getDegree(i);
 		heap.addElement(i, degreeInG[i]);
 	}
 	// While the there exists non-dominated vertices
@@ -142,10 +143,10 @@ std::vector<int> smarterGreedyHeapV2(Graph *G){
 			heap.removeMax();
 			nonDominated--;
 			// and then we update the degrees
-			for(int u : G->getNeighbours(max.first)){
+			for(int u : G.getNeighbours(max.first)){
 				degreeInG[u]--;
 				nonDominated--;
-				for(int nei : G->getNeighbours(u)){
+				for(int nei : G.getNeighbours(u)){
 					degreeInG[nei]--;
 				}
 			} 
@@ -163,7 +164,7 @@ std::vector<int> smarterGreedyHeapV2(Graph *G){
 // Smart Greedy with Buckets of Buckets
 /////////////////////////////////////////
 
-std::vector<int> smarterBucketsOfBuckets(Graph *G, std::vector<int>forcedVertices){
+std::vector<int> smarterBucketsOfBuckets(const Graph& G, std::vector<int>forcedVertices){
 	/*
 	
 	Here, we store the  current degree of non-dominated vertices in a double linked list of double linked list
@@ -185,7 +186,7 @@ std::vector<int> smarterBucketsOfBuckets(Graph *G, std::vector<int>forcedVertice
 	BucketsOfBuckets buckets(G);
 	std::vector<bool> isDom = std::vector<bool>(buckets.getNumberOfElements(), false);
 	for(int i = 0; i < buckets.getNumberOfElements(); i++){
-		buckets.pushVertexUp(i, G->getDegree(i));
+		buckets.pushVertexUp(i, G.getDegree(i));
 	}
 	// from this points, the deta structure is fully built !
 	// We can put the forced vertices in the dominant
@@ -198,7 +199,7 @@ std::vector<int> smarterBucketsOfBuckets(Graph *G, std::vector<int>forcedVertice
 			buckets.deleteVertex(u);
 			deleted.push_back(u);
 		}
-		for(int v : G->getNeighbours(u)){
+		for(int v : G.getNeighbours(u)){
 			if(!isDom[v]){
 				isDom[v] = true;
 				buckets.deleteVertex(v);
@@ -206,7 +207,7 @@ std::vector<int> smarterBucketsOfBuckets(Graph *G, std::vector<int>forcedVertice
 			}
 		}
 		for(int v : deleted){
-			for(int nei : G->getNeighbours(v)){
+			for(int nei : G.getNeighbours(v)){
 				if(!isDom[nei]){
 					buckets.decreaseVertex(nei);
 				}
@@ -221,7 +222,7 @@ std::vector<int> smarterBucketsOfBuckets(Graph *G, std::vector<int>forcedVertice
 		deleted.push_back(vertex);
 		dom.push_back(vertex);
 		isDom[vertex] = true;
-		for(int v : G->getNeighbours(vertex)){
+		for(int v : G.getNeighbours(vertex)){
 			if(!isDom[v]){
 				buckets.deleteVertex(v);
 				deleted.push_back(v);
@@ -229,7 +230,7 @@ std::vector<int> smarterBucketsOfBuckets(Graph *G, std::vector<int>forcedVertice
 			}
 		}
 		for(int v : deleted){
-			for(int nei : G->getNeighbours(v)){
+			for(int nei : G.getNeighbours(v)){
 				if(!isDom[nei]){
 					buckets.decreaseVertex(nei);
 				}

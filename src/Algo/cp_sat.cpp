@@ -55,3 +55,4 @@ std::vector<int> cp_sat(const Graph& G, const double& time) {
 
     return dom;
 }
+

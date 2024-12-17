@@ -8,92 +8,69 @@
 #include "Algo/milp.hpp"
 #include "Algo/cp_sat.hpp"
 
-int main(){
-    //std::string filename = "../data/project_instances/5.graph";
-    //std::string filename = "../data/pace_2016_instances/hidden/31.graph";
-    //std::string filename = "../data/pace_2016_instances/hidden/1.graph";
-    //std::string filename = "../data/pace_2016_instances/hidden/3.graph"; 
+#include <boost/program_options.hpp>
 
-    std::string filename;
-    bool printlist = false;
-    bool printsize = true;
-    int algo = 0; 
+namespace po = boost::program_options;
 
-    for(int i = 10; i <= 10; i++){
-        std::string filename = "../data/pace_2016_instances/hidden/"+std::to_string(i)+".graph"; 
-        std::cout << i << "/" << 130 << std::endl;
-        if(algo == 3 || algo == 0){
-            Graph G3(filename);
-            std::vector<int> tmpG3 = smarterGreedyHeap(&G3);
-            if(printlist){
-                for(int i = 0; i < tmpG3.size(); i++){
-                    std::cout << tmpG3[i] << " ";
-                }
-                std::cout << std::endl;
-            }
-            if(printsize){
-                std::cout << tmpG3.size() << std::endl;
-                std::cout << std::endl;
-            }
+
+std::vector<int> run(
+        const Graph& instance,
+        const po::variables_map& vm)
+{
+
+    // Run algorithm.
+    std::string algorithm = vm["algorithm"].as<std::string>();
+    if (algorithm == "greedy") {
+        std::string type = vm["type"].as<std::string>();
+        if(type == "heap"){
+            return smarterGreedyHeapV2(instance);
         }
-
-        if(algo == 4 || algo == 0){
-            Graph G3(filename);
-            std::vector<int> tmpG3 = smarterGreedyHeapV2(&G3);
-            if(printlist){
-                for(int i = 0; i < tmpG3.size(); i++){
-                    std::cout << tmpG3[i] << " ";
-                }
-                std::cout << std::endl;
-            }
-            if(printsize){
-                std::cout << tmpG3.size() << std::endl;
-                std::cout << std::endl;
-            }
-        }
-
-
-        if(algo == 5 || algo == 0){
-            Graph G4(filename);
-            int n = G4.getNumVertices();
-            std::vector<int> tmpG4 = smarterBucketsOfBuckets(&G4, {});
-            if(printlist){
-                for(int i = 0; i < tmpG4.size(); i++){
-                    std::cout << tmpG4[i] << " ";
-                }
-                std::cout << std::endl;
-            }
-            if(printsize){
-                std::cout << tmpG4.size() << std::endl;
-                std::cout << std::endl;
-            }
-        }
-
-        if(algo == 7 || algo == 0){
-            Graph G5(filename);
-            std::vector<int> tmpG5 = gradient(G5, 1000);
-            if(printlist){
-                for(int i = 0; i < tmpG5.size(); i++){
-                    std::cout << tmpG5[i] << " ";
-                }
-                std::cout << std::endl;
-            }
-            if(printsize){
-                std::cout << tmpG5.size() << std::endl;
-                std::cout << std::endl;
-            }
-        }
+        /*else if(version == "bucket"){
+            return smarterBucketsOfBuckets(instance);
+        }*/
+        
+    } 
+    if(algorithm == "milp"){
+        const double time = 10;
+        return milp(instance, time);
     }
 
-    const double time = 10.0;
-    filename = "../data/pace_2016_instances/public/091.graph";
-    const Graph G(filename);
+ else {
+        throw std::invalid_argument(
+                "Unknown algorithm \"" + algorithm + "\".");
+    }
+}
 
-    std::vector<int> test_milp = milp(G, time);
-    std::vector<int> test_cp_sat = cp_sat(G, time);
+int main(int argc, char *argv[])
+{
+    // Parse program options
+    po::options_description desc("Allowed options");
+    desc.add_options()
+        ("help,h", "produce help message")
+        ("algorithm,a", po::value<std::string>()->required(), "set algorithm")
+        ("type,y",po::value<std::string>(),"set algorithm type for greedys")
+        ("input,i", po::value<std::string>()->required(), "set input file (required)")
+        ;
+    po::variables_map vm;
+    po::store(po::parse_command_line(argc, argv, desc), vm);
+    if (vm.count("help")) {
+        std::cout << desc << std::endl;;
+        return 1;
+    }
+    try {
+        po::notify(vm);
+    } catch (const po::required_option& e) {
+        std::cout << desc << std::endl;;
+        return 1;
+    }
 
-    std::cout << "Optimal size of dominating set for CP SAT : " << test_cp_sat.size() << std::endl;
-    std::cout << "Optimal size of dominating set for MILP : " << test_milp.size() << std::endl;
+    // Build instance.
+    const Graph instance(
+            vm["input"].as<std::string>());
+    // Run.
+    std::vector<int> output = run(instance, vm);
+    std::cout<<output.size()<<std::endl;
+    
 
     return 0;
-};
+}

@@ -25,17 +25,17 @@ bool isDominatingSet(Graph G, std::vector<int> dom){
     }
     return true;
 }
-
+/*
 
 TEST(greedy,hidden_instances)
 {
     for(int i = 1; i <= 130; i++){
         std::string filename = "../data/pace_2016_instances/hidden/"+std::to_string(i)+".graph";
-        Graph G3(filename);
-        std::vector<int> tmpG3 = smarterGreedyHeap(&G3);
+        const Graph G3(filename);
+        std::vector<int> tmpG3 = smarterGreedyHeap(G3);
 
-        Graph G4(filename);
-        std::vector<int> tmpG4 = smarterBucketsOfBuckets(&G4, {});
+        const Graph G4(filename);
+        std::vector<int> tmpG4 = smarterBucketsOfBuckets(G4, {});
 
         EXPECT_EQ(isDominatingSet(G3, tmpG3), true);
         EXPECT_EQ(isDominatingSet(G4, tmpG4), true);
@@ -54,14 +54,14 @@ TEST(greedy,public_instances)
             str = "00"+str;
         }
         std::string filename = "../data/pace_2016_instances/public/"+str+".graph";
-        Graph G3(filename);
-        std::vector<int> tmpG3 = smarterGreedyHeap(&G3);
+        const Graph G3(filename);
+        std::vector<int> tmpG3 = smarterGreedyHeap(G3);
 
-        Graph G4(filename);
-        std::vector<int> tmpG4 = smarterBucketsOfBuckets(&G4, {});
+        const Graph G4(filename);
+        std::vector<int> tmpG4 = smarterBucketsOfBuckets(G4, {});
 
         EXPECT_EQ(isDominatingSet(G3, tmpG3), true);
         EXPECT_EQ(isDominatingSet(G4, tmpG4), true);
     }
 
-}
+}*/

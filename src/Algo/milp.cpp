@@ -18,6 +18,7 @@ std::vector<int> milp(const Graph& G, const double& time){
         }
         adj.push_back(tmp);
     }
+    
     std::vector<double> zeros(n, 0);
     std::vector<double> ones(n, 1); // Vectors of size n filled with 1
     std::vector<double> upper(n, n);

@@ -10,5 +10,6 @@ target_link_libraries(dom_set_main PUBLIC
     greedy
     genetic
     milp
-    cp_sat)
+    cp_sat
+    Boost::program_options)
 install(TARGETS dom_set_main)
