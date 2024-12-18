@@ -29,14 +29,14 @@ Output cp_sat(const Graph& G, const double& time) {
     // Minimizing the number of elements in the dominating set
     model.Minimize(operations_research::sat::LinearExpr::Sum(isDominating));
 
-    // Execute the solver
-    operations_research::sat::Model model_parameters;
-    const operations_research::sat::CpSolverResponse response = Solve(model.Build());
-
     // Sets a time limit
+    operations_research::sat::Model model_parameters;
     operations_research::sat::SatParameters parameters;
     parameters.set_max_time_in_seconds(time);
     model_parameters.Add(NewSatParameters(parameters));
+
+    // Execute the solver
+    const operations_research::sat::CpSolverResponse response = SolveCpModel(model.Build(), &model_parameters);
 
     if (response.status() == operations_research::sat::CpSolverStatus::OPTIMAL ||
         response.status() == operations_research::sat::CpSolverStatus::FEASIBLE) {
