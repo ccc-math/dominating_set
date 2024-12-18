@@ -28,11 +28,15 @@ Output run(
         else if(type == "bucket"){
             //return smarterBucketsOfBuckets(instance);
         }
-        
-    } 
+    }
+
     if(algorithm == "milp"){
-        const double time = 10;
-        return milp(instance, time);
+        const double time_limit = 10;
+        return milp(instance, time_limit);
+    }
+    if(algorithm == "sat" || algorithm == "cp_sat"){
+        const double time_limit = 10;
+        return cp_sat(instance, time_limit);
     }
 
  else {

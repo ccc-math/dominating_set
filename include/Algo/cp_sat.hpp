@@ -6,6 +6,8 @@
 #include "data_types/graph.hpp"
 #include "data_types/binaryHeap.hpp"
 #include "data_types/buckets.hpp"
+#include "data_types/output.hpp"
+
 
 //Or tools dependencies
 #include "absl/container/btree_map.h"
@@ -28,4 +30,4 @@
 #include "ortools/util/sorted_interval_list.h"
 
 
-std::vector<int> cp_sat(const Graph& G, const double& time);
+Output cp_sat(const Graph& G, const double& time);

@@ -1,12 +1,12 @@
 #include "Algo/cp_sat.hpp"
 
-std::vector<int> cp_sat(const Graph& G, const double& time) {
+Output cp_sat(const Graph& G, const double& time) {
+    Output dom;
     operations_research::sat::CpModelBuilder model; // Creating the model
     int n = G.getNumVertices();
     // Boolean vector containing the variables for the cp_sat algorithm
     std::vector<operations_research::sat::BoolVar> isDominating = {}; 
     isDominating.reserve(n);
-    std::vector<int> dom = {};
 
     // Creating the set of variables for the CP-SAT
     for (int i = 0; i < n; i++){
@@ -46,7 +46,7 @@ std::vector<int> cp_sat(const Graph& G, const double& time) {
         // If a solution is found is at least feasible
         for (int i = 0; i < n; i++){
             if (operations_research::sat::SolutionBooleanValue(response, isDominating[i])) {
-                dom.push_back(i);
+                dom.add(i);
             }
         }
     } else {
