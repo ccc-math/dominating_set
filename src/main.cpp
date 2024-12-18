@@ -34,6 +34,7 @@ Output run(
         const double time = 10;
         return milp(instance, time);
     }
+    
 
  else {
         throw std::invalid_argument(
@@ -47,9 +48,10 @@ int main(int argc, char *argv[])
     po::options_description desc("Allowed options");
     desc.add_options()
         ("help,h", "produce help message")
-        ("algorithm,a", po::value<std::string>()->required(), "set algorithm")
+        ("algorithm,a", po::value<std::string>()->required(), "set algorithm (required)")
         ("type,y",po::value<std::string>(),"set algorithm type for greedys")
         ("input,i", po::value<std::string>()->required(), "set input file (required)")
+        ("output,o",po::value<std::string>(),"set output path")
         ;
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
