@@ -111,7 +111,7 @@ void BinaryHeap::printHeap(){
 	for(int i = 0; i < numOfElements; i++){
 		std::cout << heap[i].first << " ";
 	}
-	std::cout << std::endl;
+	std::cout << " // ";
 	for(int i = numOfElements; i < maxSize; i++){
 		std::cout << heap[i].first << " ";
 	}

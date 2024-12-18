@@ -118,22 +118,38 @@ Output smarterGreedyHeap(Graph *G){
 }; 
 
 Output smarterGreedyHeapV2(const Graph& G){
+	/*
+	Algo : We keep 3 types of vertices :
+		- the black ones : in the dominating set
+		- the grey ones : the dominated ones
+		- and the white ones : the non-dominated ones
+		At each step, we put the non-black vertex with the largest number of white vertices in the som set
+
+	*/
 	int n = G.getNumVertices();
-	int nonDominated = n;
-	std::vector<bool> isInDom(n, false);
+	int nonDominated = n;					// number of white vertices
+	std::vector<bool> isDom(n, false);	// if v is not white
 	Output dom;
-	std::vector<int> degreeInG(n, 0);
+	std::vector<int> degreeInG(n, 0);		// number of current white neighbours
 	BinaryHeap heap(n);
 	for(int i = 0; i < n; i++){
 		degreeInG[i] = G.getDegree(i);
-		heap.addElement(i, degreeInG[i]);
+		if(degreeInG[i] > 0)
+			heap.addElement(i, degreeInG[i]);
+		else{
+			nonDominated--;
+			dom.add(i);
+		}
 	}
-	// While the there exists non-dominated vertices
+	// While the there exists non-dominated vertices (white vertices)
 	std::pair<int, int> max;
 	while(nonDominated > 0){
+		//std::cout << std::endl;
 		//heap.printHeap();
+		//std::cout << "non dom " << nonDominated << std::endl;
 		max = heap.getMax();
-		// if the current degree has changed, we update it
+		//std::cout << "max :               " << max.first << " " << max.second << std::endl;
+		// if the current degree has changed, we update it in the heap
 		if(max.second != degreeInG[max.first]){
 			heap.setMax(max.first, degreeInG[max.first]);
 			heap.pushDown(0);
@@ -142,15 +158,30 @@ Output smarterGreedyHeapV2(const Graph& G){
 			// otherwise we add the vertex to the dom set
 			dom.add(max.first);
 			heap.removeMax();
-			nonDominated--;
-			// and then we update the degrees
+			// and then we update the degrees if the chosen vertex was white
 			for(int u : G.getNeighbours(max.first)){
-				degreeInG[u]--;
-				nonDominated--;
-				for(int nei : G.getNeighbours(u)){
-					degreeInG[nei]--;
+				if(!isDom[max.first]){	// if max was white
+					degreeInG[u]--;		
+					if(degreeInG[u] <= 0){
+						degreeInG[u] = -1;	// if u has white degree 0, we can force it to not be in the dom set since u has no non-dominated neighbours
+					}
 				}
-			} 
+				if(!isDom[u]){			// if u was white
+					for(int nei : G.getNeighbours(u)){
+						degreeInG[nei]--;
+						if(degreeInG[nei] <= 0){
+							degreeInG[nei] = -1;	// if nei has white degree 0, we can force it to not be in the dom set since nei has no non-dominated neighbours
+						}
+					}
+					isDom[u] = true;
+					nonDominated--;
+				}
+			}
+			if(!isDom[max.first]){
+				isDom[max.first] = true;
+				nonDominated--;
+			}
+			
 		}
 	}
 
