@@ -4,6 +4,7 @@
 
 #include <string>
 #include <gtest/gtest.h>
+#include <iostream>
 
 
 
@@ -25,22 +26,40 @@ bool isDominatingSet(Graph G, std::vector<int> dom){
     }
     return true;
 }
-/*
+
+
+
+TEST(greedy,sandbox)
+{
+    std::string filename = "../data/project_instances/3.graph";
+    const Graph G(filename);
+    G.printGraph_console();
+    Output tmpG = smarterGreedyHeapV2(G);
+    for(auto e : tmpG.get_set())
+        std::cout << e << std::endl; 
+    if(isDominatingSet(G, tmpG.get_set()))
+        std::cout << "yes" << std::endl;
+    else
+        std::cout << "no" << std::endl;
+}
+
+
 
 TEST(greedy,hidden_instances)
 {
-    for(int i = 1; i <= 130; i++){
+    for(int i = 1; i <= 130; i++){ //130
         std::string filename = "../data/pace_2016_instances/hidden/"+std::to_string(i)+".graph";
         const Graph G3(filename);
-        std::vector<int> tmpG3 = smarterGreedyHeap(G3);
+        Output tmpG3 = smarterGreedyHeapV2(G3);
 
-        const Graph G4(filename);
-        std::vector<int> tmpG4 = smarterBucketsOfBuckets(G4, {});
+        //const Graph G4(filename);
+        //Output tmpG4 = smarterBucketsOfBucketsV2(G4, {});
 
-        EXPECT_EQ(isDominatingSet(G3, tmpG3), true);
-        EXPECT_EQ(isDominatingSet(G4, tmpG4), true);
+        EXPECT_EQ(isDominatingSet(G3, tmpG3.get_set()), true);
+        //EXPECT_EQ(isDominatingSet(G4, tmpG4), true);
     }
 }
+
 
 
 TEST(greedy,public_instances)
@@ -55,13 +74,14 @@ TEST(greedy,public_instances)
         }
         std::string filename = "../data/pace_2016_instances/public/"+str+".graph";
         const Graph G3(filename);
-        std::vector<int> tmpG3 = smarterGreedyHeap(G3);
+        Output tmpG3 = smarterGreedyHeapV2(G3);
 
-        const Graph G4(filename);
-        std::vector<int> tmpG4 = smarterBucketsOfBuckets(G4, {});
+        //const Graph G4(filename);
+        //Output tmpG4 = smarterBucketsOfBucketsV2(&G4, {});
 
-        EXPECT_EQ(isDominatingSet(G3, tmpG3), true);
-        EXPECT_EQ(isDominatingSet(G4, tmpG4), true);
+        EXPECT_EQ(isDominatingSet(G3, tmpG3.get_set()), true);
+        //EXPECT_EQ(isDominatingSet(G4, tmpG4), true);
     }
 
-}*/
+}
+
