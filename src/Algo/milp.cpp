@@ -91,7 +91,6 @@ Output milp(const Graph& G, const double& time){
 
     for (int i = 0; i < lp.num_col_; i++) {
         if (info.primal_solution_status && solution.col_value[i] > 0.1) {
-                std::cout << solution.col_value[i];
                 dom.add(i);
             }
     }
