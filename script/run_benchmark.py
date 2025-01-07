@@ -72,10 +72,10 @@ if __name__ == "__main__":
                 command = (
                         dom_set_main
                         + "  --input \"" + instance_path + "\""
-                        + " --time-limit 3600"
-                        + "  --output \"" + json_output_path + "\""
-                        + " --certificate \"" + certificate_path + "\"")
-                        + "--algorithm \"" + 
+                        #+ " --time-limit 3600"
+                        #+ "  --output \"" + json_output_path + "\""
+                        #+ " --certificate \"" + certificate_path + "\"")
+                        + "--algorithm \"" )
                 run_command(command)
 
 
