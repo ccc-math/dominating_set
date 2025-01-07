@@ -5,7 +5,7 @@
 
 
 
-Output gradient(const Graph& G, int numberOfIteration){
+Output large_scale_search(const Graph& G, int numberOfIteration){
 	int n = G.getNumVertices();
 	srand (time(NULL));
 	const Graph Gprime(G);

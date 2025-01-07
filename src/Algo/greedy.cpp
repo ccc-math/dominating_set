@@ -271,56 +271,72 @@ Output smarterBucketsOfBuckets(const Graph& G, std::vector<int>forcedVertices){
 	return dom;
 }; 
 
-/*
-std::vector<int> smarterBucketsOfBucketsV2(Graph *G, std::vector<int>forcedVertices){
-	// First, we put the the forced vertices in the dom set
-	int nonDominated = G->getNumVertices();
-	std::vector<int> dom = {};
+
+
+Output smarterBucketsOfBucketsV2(const Graph &G, std::vector<int>forcedVertices){
+	// First, we construct the data structure
+	int n = G.getNumVertices();
+	int nonDominated = n;
+	Output dom;
 	BucketsOfBuckets buckets(G);
-	std::vector<bool> isInDom = std::vector<bool>(buckets.getNumberOfElements(), false);
+	std::vector<bool> isDom(n, false);
+	std::vector<bool> isInDom(n, false);
 	for(int i = 0; i < buckets.getNumberOfElements(); i++){
-		buckets.pushVertexUp(i, G->getDegree(i));
+		buckets.pushVertexUp(i, G.getDegree(i));
 	}
-	// from this points, the deta structure is fully built !
-	// We can put the forced vertices in the dominant
-	for(int u : forcedVertices){
-		// If u has not already been dominated :
-		dom.push_back(u);
-		isInDom[u] = true;
-		buckets.deleteVertex(u);
-		nonDominated--;
-		for(int v : G->getNeighbours(u)){
-			if(!isInDom[v]){
-				nonDominated--;
-				buckets.decreaseVertex(v);
-				for(int nei : G->getNeighbours(v)){
+	// Then, we proceed with the algorithm
+	// First, if there are some forced vertices, we put them in the dominating set
+	for(int v : forcedVertices){
+		dom.add(v);
+		buckets.deleteVertex(v);
+		isInDom[v] = true;
+		for(int u : G.getNeighbours(v)){
+			if(!isDom[v]){
+				buckets.decreaseVertex(u);
+			}
+			if(!isDom[u]){
+				for(int nei : G.getNeighbours(u)){
 					if(!isInDom[nei]){
 						buckets.decreaseVertex(nei);
 					}
 				}
+				isDom[u] = true;
+				nonDominated--;
 			}
-			
+		}
+		if(!isDom[v]){
+			isDom[v] = true;
+			nonDominated--;
 		}
 	}
+	// Then, we run the algorithm
 	while(nonDominated > 0){
-		int vertex = buckets.getHeadVertex();						
+		int vertex = buckets.getHeadVertex();	// Head of the structure, vertex of max white degree
 		buckets.deleteVertex(vertex);
-		dom.push_back(vertex);
+		dom.add(vertex);
 		isInDom[vertex] = true;
-		for(int v : G->getNeighbours(vertex)){
-			if(!isInDom[v]){
-				nonDominated--;
-				buckets.decreaseVertex(v);
-				for(int nei : G->getNeighbours(v)){
+		for(int u : G.getNeighbours(vertex)){
+			if(!isDom[vertex]){	// if vertex was white
+				buckets.decreaseVertex(u);
+			}
+			
+			if(!isDom[u]){			// if u was white
+				for(int nei : G.getNeighbours(u)){
 					if(!isInDom[nei]){
 						buckets.decreaseVertex(nei);
 					}
 				}
+				isDom[u] = true;
+				nonDominated--;
 			}
-			
+		}
+		if(!isDom[vertex]){
+			isDom[vertex] = true;
+			nonDominated--;
 		}
 	}
 	return dom;
 }; 
-*/
+
+
 

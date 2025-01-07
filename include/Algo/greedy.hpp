@@ -24,7 +24,7 @@ Output smarterGreedyHeapV2(const Graph& G);
 
 Output smarterBucketsOfBuckets(const Graph& G, std::vector<int> forcedVertices);
 
-Output smarterBucketsOfBucketsV2(Graph* G, std::vector<int> forcedVertices);
+Output smarterBucketsOfBucketsV2(const Graph& G, std::vector<int> forcedVertices);
 
 
 

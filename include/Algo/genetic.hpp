@@ -14,7 +14,7 @@
 
 
 
-Output gradient(const Graph& G, int numberOfIteration);
+Output large_scale_search(const Graph& G, int numberOfIteration);
 
 
 
