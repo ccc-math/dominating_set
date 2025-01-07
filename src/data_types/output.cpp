@@ -9,6 +9,13 @@ int Output::get_size(){
     return size;
 }
 
+void Output::set_runtime(double t){
+    runtime = t;
+}
+
+double Output::get_runtime(){
+    return runtime;
+}
 
 void Output::to_file(){
 

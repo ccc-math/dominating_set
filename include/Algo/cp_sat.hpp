@@ -1,6 +1,8 @@
 #pragma once
 
 #include <stdlib.h>
+#include <chrono>
+
 
 //Data dependencies
 #include "data_types/graph.hpp"

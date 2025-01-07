@@ -73,7 +73,9 @@ int main(int argc, char *argv[])
             vm["input"].as<std::string>());
     // Run.
     Output output = run(instance, vm);
-    std::cout<<output.get_size()<<std::endl;
+    std::cout << "size of the solution : " << output.get_size()<<std::endl;
+    std::cout << "Runtime of the algorithm : " << output.get_runtime() << " seconds." << std::endl;
+
     
 
     return 0;

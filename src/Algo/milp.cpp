@@ -2,6 +2,7 @@
 
 
 Output milp(const Graph& G, const double& time){
+     auto timer_start = std::chrono::high_resolution_clock::now();
     Output dom;
     const int n = G.getNumVertices();
     std::vector<std::vector<int>> adj = {}; // Vector containing all adjacency lists
@@ -90,9 +91,13 @@ Output milp(const Graph& G, const double& time){
 
     for (int i = 0; i < lp.num_col_; i++) {
         if (info.primal_solution_status && solution.col_value[i] > 0.1) {
+                std::cout << solution.col_value[i];
                 dom.add(i);
             }
     }
 
+    auto timer_end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = timer_end - timer_start;
+    dom.set_runtime(duration.count());
     return dom;
 }

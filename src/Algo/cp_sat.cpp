@@ -1,6 +1,7 @@
 #include "Algo/cp_sat.hpp"
 
 Output cp_sat(const Graph& G, const double& time) {
+    auto timer_start = std::chrono::high_resolution_clock::now();
     Output dom;
     operations_research::sat::CpModelBuilder model; // Creating the model
     int n = G.getNumVertices();
@@ -52,7 +53,10 @@ Output cp_sat(const Graph& G, const double& time) {
     } else {
         std::cout << "No solution found." << std::endl;
     }
-
+    
+    auto timer_end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = timer_end - timer_start;
+    dom.set_runtime(duration.count());
     return dom;
 }
 
