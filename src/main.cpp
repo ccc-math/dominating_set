@@ -75,6 +75,10 @@ int main(int argc, char *argv[])
             vm["input"].as<std::string>());
     // Run.
     Output output = run(instance, vm);
+    
+    // Export the solution in a csv_file.
+    output.exporter(vm);
+
     std::cout << "size of the solution : " << output.get_size()<<std::endl;
     std::cout << "Runtime of the algorithm : " << output.get_runtime() << " seconds." << std::endl;
 

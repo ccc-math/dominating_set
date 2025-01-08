@@ -1,5 +1,6 @@
 #include "data_types/output.hpp"
 
+
 Output::Output(){
     size=0;
     dom=std::vector<int>({});
@@ -34,4 +35,25 @@ std::vector<int> Output::get_set(){
 bool Output::is_in_set(const int& e){
     auto it = std::find(dom.begin(),dom.end(),e);
     return(it!=dom.end());
+}
+
+void Output::exporter(const boost::program_options::variables_map& vm) {
+    /*
+    * Add in csv file information about the algorithm in the following order :
+    * - name instance
+    * - size of the solution
+    * - solution
+    * - runtime of the algo
+    * - ?
+    */
+    std::string instance_name = vm["input"].as<std::string>();
+    std::string algo_name = vm["algorithm"].as<std::string>();
+    std::ofstream file;
+    file.open("../data/" + instance_name + "_" + algo_name + ".sol");
+    file << instance_name << ";" << size << "; {";
+    for (int i; i < size-1; i++) {
+        file << std::to_string(dom[i]) + ", ";
+    }
+    file << std::to_string(dom[size - 1]) + "} ;" << runtime << ";" << "\n";
+    file.close();
 }

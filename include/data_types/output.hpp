@@ -7,6 +7,7 @@
 #include <string>
 #include <list>
 #include <algorithm>
+#include <boost/program_options.hpp>
 
 
 class Output{
@@ -23,6 +24,6 @@ class Output{
     double get_runtime();
     std::vector<int> get_set();    
     bool is_in_set(const int& e);
+    void exporter(const boost::program_options::variables_map& vm);
 };
-
 #endif

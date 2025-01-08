@@ -7,5 +7,6 @@ target_sources(data_types PRIVATE
 target_include_directories(data_types PUBLIC 
 	${PROJECT_SOURCE_DIR}/include)
 
-
+target_link_libraries(data_types PUBLIC
+    Boost::program_options)
 
