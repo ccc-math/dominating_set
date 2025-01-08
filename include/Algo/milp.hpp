@@ -8,6 +8,7 @@
 #include "data_types/graph.hpp"
 #include "data_types/output.hpp"
 #include <Highs.h>
+#include <chrono>
 
 
 

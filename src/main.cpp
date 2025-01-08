@@ -28,12 +28,17 @@ Output run(
         else if(type == "bucket"){
             //return smarterBucketsOfBuckets(instance);
         }
-        
-    } 
-    if(algorithm == "milp"){
-        const double time = 10;
-        return milp(instance, time);
     }
+
+    if(algorithm == "milp"){
+        const double time_limit = 10;
+        return milp(instance, time_limit);
+    }
+    if(algorithm == "sat" || algorithm == "cp_sat"){
+        const double time_limit = 10;
+        return cp_sat(instance, time_limit);
+    }
+    
 
  else {
         throw std::invalid_argument(
@@ -47,9 +52,10 @@ int main(int argc, char *argv[])
     po::options_description desc("Allowed options");
     desc.add_options()
         ("help,h", "produce help message")
-        ("algorithm,a", po::value<std::string>()->required(), "set algorithm")
+        ("algorithm,a", po::value<std::string>()->required(), "set algorithm (required)")
         ("type,y",po::value<std::string>(),"set algorithm type for greedys")
         ("input,i", po::value<std::string>()->required(), "set input file (required)")
+        ("output,o",po::value<std::string>(),"set output path")
         ;
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -69,7 +75,9 @@ int main(int argc, char *argv[])
             vm["input"].as<std::string>());
     // Run.
     Output output = run(instance, vm);
-    std::cout<<output.get_size()<<std::endl;
+    std::cout << "size of the solution : " << output.get_size()<<std::endl;
+    std::cout << "Runtime of the algorithm : " << output.get_runtime() << " seconds." << std::endl;
+
     
 
     return 0;
