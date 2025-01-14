@@ -15,9 +15,9 @@
 #include "Algo/greedy.hpp"
 
 
-Output large_scale_search(const Graph& G, double time);
+Output large_scale_search(const Graph& G, const double &time);
 
-Output large_scale_search_with_weights(const Graph& G, double time, double alpha, double beta, double gamma, double lambda);
+Output large_scale_search_with_weights(const Graph &G, const double &time, const double &alpha, const double &beta, const double &gamma, const double &lambda);
 
 
 

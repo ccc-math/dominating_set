@@ -2,11 +2,11 @@
 #include "Algo/genetic.hpp"
 
 
-Output large_scale_search(const Graph& G, double time){
+Output large_scale_search(const Graph& G, const double &time){
 	int n = G.getNumVertices();
 	std::srand(std::time(0));
-	const Graph Gprime(G);
-	Output best_dom = smarterBucketsOfBuckets(Gprime, {});
+	std::vector<int>empty = {};
+	Output best_dom = smarterBucketsOfBuckets(G, empty);
 	auto start = std::chrono::high_resolution_clock::now();
 	auto now = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> duration = now - start;
@@ -21,20 +21,20 @@ Output large_scale_search(const Graph& G, double time){
 			rand_dom.pop_back();
 		}
 		
-		const Graph G_loc(G);
-		Output loc_dom = smarterBucketsOfBuckets(G_loc, rand_dom);
+		Output loc_dom = smarterBucketsOfBuckets(G, rand_dom);
 		if(loc_dom.get_size() < best_dom.get_size()){
 			best_dom = loc_dom;
 		}
 		now = std::chrono::high_resolution_clock::now();
 		duration = now - start;
 	}
+	best_dom.set_runtime(time);
 	return best_dom;
 	
 }
 
 
-Output large_scale_search_with_weights(const Graph& G, double time, double alpha, double beta, double gamma, double lambda){
+Output large_scale_search_with_weights(const Graph& G, const double &time, const double &alpha, const double &beta, const double &gamma, const double &lambda){
 	/*
 	alpha, beta in [0, 1]
 	Let X_i be the solution computed at step i.
@@ -57,9 +57,9 @@ Output large_scale_search_with_weights(const Graph& G, double time, double alpha
 	std::vector<int> size_of_sol_containing_v(n, 0);
 
 	std::srand(std::time(0));
-	const Graph Gprime(G);
 
-	Output last_dom = smarterBucketsOfBuckets(Gprime, {});
+	std::vector<int>empty = {};
+	Output last_dom = smarterBucketsOfBucketsV2(G, empty);
 	Output best_dom;
 	best_dom.set_output(last_dom.get_set());
 	int best_dom_size = best_dom.get_size();
@@ -72,23 +72,28 @@ Output large_scale_search_with_weights(const Graph& G, double time, double alpha
 	while(duration.count() < time){
 		std::vector<int> incomplete_dom = {};
 		for(int v : last_dom.get_set()){
-			double p = std::pow(alpha, cpt/gamma)*beta + (1 - std::pow(alpha, cpt/gamma))*pow(lambda, 1 - (static_cast<double>(best_dom_size)/(size_of_sol_containing_v[v]/sol_containing_v[v])))*beta;
+			double p = std::pow(alpha, static_cast<double>(cpt)/gamma)*beta + (1 - std::pow(alpha, cpt/gamma))*pow(lambda, 1 - (static_cast<double>(best_dom_size)/(size_of_sol_containing_v[v]/sol_containing_v[v])))*beta;
 			double random_num = static_cast<double>(std::rand()) / RAND_MAX;
 			if(p <= random_num){
 				incomplete_dom.push_back(v);
 			}
 		}
-		const Graph G_loc(G);
-		last_dom = smarterBucketsOfBuckets(G_loc, incomplete_dom);
+		last_dom = smarterBucketsOfBucketsV2(G, incomplete_dom);
 		if(last_dom.get_size() < best_dom_size){
 			best_dom_size = last_dom.get_size();
 			best_dom = last_dom;
 		}
 		cpt++;
+		// Update the scores
+		for(int v : last_dom.get_set()){
+			size_of_sol_containing_v[v] = size_of_sol_containing_v[v] + last_dom.get_size();
+			sol_containing_v[v]++;
+		}
 		now = std::chrono::high_resolution_clock::now();
 		duration = now - start;
-		std::cout << best_dom_size << std::endl;
+		std::cout << best_dom_size << " | " << last_dom.get_size() << " | " << cpt << std::endl;
 	}
+	best_dom.set_runtime(time);
 	return best_dom;
 }
 

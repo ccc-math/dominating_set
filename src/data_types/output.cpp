@@ -59,6 +59,7 @@ void Output::exporter(const boost::program_options::variables_map& vm) {
     }
     file << std::to_string(dom[size - 1]) + "} ;" << runtime << ";" << "\n";
     file.close();
+}
 
 void Output::to_file(std::string filepath,std::string instance,std::string algo, std::string isdom){
 
@@ -83,5 +84,4 @@ void Output::to_file(std::string filepath,std::string instance,std::string algo,
     }
     file<<"\n";
     file.close();
-
 }

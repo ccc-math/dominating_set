@@ -118,6 +118,7 @@ Output smarterGreedyHeap(Graph *G){
 }; 
 
 Output smarterGreedyHeapV2(const Graph& G){
+	auto start = std::chrono::high_resolution_clock::now();
 	/*
 	Algo : We keep 3 types of vertices :
 		- the black ones : in the dominating set
@@ -184,7 +185,9 @@ Output smarterGreedyHeapV2(const Graph& G){
 			
 		}
 	}
-
+	auto now = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> duration = now - start;
+	dom.set_runtime(duration.count());
 	return dom;
 };
 
@@ -195,7 +198,7 @@ Output smarterGreedyHeapV2(const Graph& G){
 /////////////////////////////////////////
 // Smart Greedy with Buckets of Buckets
 /////////////////////////////////////////
-Output smarterBucketsOfBuckets(const Graph& G, std::vector<int>forcedVertices){
+Output smarterBucketsOfBuckets(const Graph& G, std::vector<int> &forcedVertices){
 	/*
 	
 	Here, we store the  current degree of non-dominated vertices in a double linked list of double linked list
@@ -273,7 +276,8 @@ Output smarterBucketsOfBuckets(const Graph& G, std::vector<int>forcedVertices){
 
 
 
-Output smarterBucketsOfBucketsV2(const Graph &G, std::vector<int>forcedVertices){
+Output smarterBucketsOfBucketsV2(const Graph &G, std::vector<int> &forcedVertices){
+	auto start = std::chrono::high_resolution_clock::now();
 	// First, we construct the data structure
 	int n = G.getNumVertices();
 	int nonDominated = n;
@@ -335,6 +339,9 @@ Output smarterBucketsOfBucketsV2(const Graph &G, std::vector<int>forcedVertices)
 			nonDominated--;
 		}
 	}
+	auto now = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> duration = now - start;
+	dom.set_runtime(duration.count());
 	return dom;
 }; 
 
