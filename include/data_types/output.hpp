@@ -4,10 +4,12 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <list>
 #include <algorithm>
 #include <boost/program_options.hpp>
+
 
 
 class Output{
@@ -25,5 +27,6 @@ class Output{
     std::vector<int> get_set();    
     bool is_in_set(const int& e);
     void exporter(const boost::program_options::variables_map& vm);
+    void to_file(std::string filepath,std::string instance,std::string algo, std::string instance);
 };
 #endif
