@@ -86,6 +86,12 @@ int main(int argc, char *argv[])
         output.to_csv(vm["output"].as<std::string>(),vm["input"].as<std::string>(),vm["algorithm"].as<std::string>(),isdom);
     }
     
+    
+    // Export the solution in a csv_file.
+    output.exporter(vm);
+
+    std::cout << "size of the solution : " << output.get_size()<<std::endl;
+    std::cout << "Runtime of the algorithm : " << output.get_runtime() << " seconds." << std::endl;
 
     
 

@@ -5,6 +5,7 @@
 #include <vector>
 #include <utility>
 #include <iostream>
+#include <chrono>
 #include "data_types/graph.hpp"
 #include "data_types/binaryHeap.hpp"
 #include "data_types/buckets.hpp"
@@ -22,9 +23,9 @@ Output smarterGreedyHeap(Graph* G);
 Output smarterGreedyHeapV2(const Graph& G);
 
 
-Output smarterBucketsOfBuckets(const Graph& G, std::vector<int> forcedVertices);
+Output smarterBucketsOfBuckets(const Graph& G, std::vector<int> &forcedVertices);
 
-Output smarterBucketsOfBucketsV2(const Graph& G, std::vector<int> forcedVertices);
+Output smarterBucketsOfBucketsV2(const Graph& G, std::vector<int> &forcedVertices);
 
 
 
