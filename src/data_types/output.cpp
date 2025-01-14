@@ -40,6 +40,30 @@ bool Output::is_in_set(const int& e){
     return(it!=dom.end());
 }
 
+
+void Output::to_csv(std::string filepath,std::string instance,std::string algo, std::string isdom){
+// Open the file in write mode
+    std::ofstream file(filepath,std::ios::app);
+
+    if (!file.is_open()) {
+        std::cerr << "Failed to open the file." << std::endl;
+    }
+
+    // Data to write (rows of CSV)
+
+    std::vector<std::string> data = 
+        {instance, algo, isdom, std::to_string(size),std::to_string(runtime)};
+
+    // Write data to the file
+    for (size_t i = 0; i < data.size(); ++i) {
+        file << data[i];            // Write the data element
+        if (i < data.size() - 1) {  // Add a comma if not the last element
+            file << ",";
+        }
+    }
+    file<<"\n";
+    file.close();
+}
 void Output::exporter(const boost::program_options::variables_map& vm) {
     /*
     * Add in csv file information about the algorithm in the following order :
@@ -63,25 +87,26 @@ void Output::exporter(const boost::program_options::variables_map& vm) {
 
 void Output::to_file(std::string filepath,std::string instance,std::string algo, std::string isdom){
 
-    // Open the file in write mode
-    std::ofstream file(filepath,std::ios::app);
+    
 
-    if (!file.is_open()) {
-        std::cerr << "Failed to open the file." << std::endl;
+bool Output::isDominatingSet(const Graph& G){
+    std::vector<bool> isDominated = {};
+    for(int i = 0; i < G.getNumVertices(); i++){
+        isDominated.push_back(false);
     }
+    for(int v : this->dom){
 
-    // Data to write (rows of CSV)
-
-    std::vector<std::string> data = 
-        {instance, algo, isdom, std::to_string(size),std::to_string(runtime)};
-
-    // Write data to the file
-    for (size_t i = 0; i < data.size(); ++i) {
-        file << data[i];            // Write the data element
-        if (i < data.size() - 1) {  // Add a comma if not the last element
-            file << ",";
+        for(int nei : G.getNeighbours(v)){
+            
+            isDominated[nei] = true;
+        }
+        isDominated[v] = true;
+    }
+    for(bool b : isDominated){
+        if(!b){
+            return false;
         }
     }
-    file<<"\n";
-    file.close();
+    return true;
 }
+

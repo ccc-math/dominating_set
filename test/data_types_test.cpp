@@ -34,12 +34,25 @@ TEST(Output,test)
 
 }
 
+TEST(Output,isDom)
+{
+    Graph G("../data/test_7.graph");
+    Output O;
+    O.add(0);
+    EXPECT_EQ(O.isDominatingSet(G),false);
+    O.add(1);
+
+    EXPECT_EQ(O.isDominatingSet(G),true);
+
+}
+
 TEST(Output,writing_to_file)
 {
     Output O;
     O.add(12);
-    O.to_file("../benchmark/test_benchmark.csv","testee","test_algo","True");
+    O.to_csv("../benchmark/test_benchmark.csv","test_benchmark","test_algo","True");
     O.add(15);
     O.set_runtime(10.0);
-    O.to_file("../benchmark/test_benchmark.csv","testee","test_algo","True");
+    O.to_csv("../benchmark/test_benchmark.csv","test_benchmark","test_algo","True");
+
 }

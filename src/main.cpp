@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include "data_types/graph.hpp"
+#include "data_types/output.hpp"
 #include "Algo/greedy.hpp"
 #include "Algo/genetic.hpp"
 #include "Algo/milp.hpp"
@@ -20,15 +21,13 @@ Output run(
 
     // Run algorithm.
     std::string algorithm = vm["algorithm"].as<std::string>();
-    if (algorithm == "greedy") {
-        std::string type = vm["type"].as<std::string>();
-        if(type == "heap"){
-            return smarterGreedyHeapV2(instance);
-        }
-        else if(type == "bucket"){
-            //return smarterBucketsOfBuckets(instance);
-        }
+    if(algorithm == "heap"){
+        return smarterGreedyHeapV2(instance);
     }
+    if(algorithm == "bucket"){
+        //return smarterBucketsOfBuckets(instance);
+    }
+    
     if (algorithm == "genetic") {
         return large_scale_search(instance,1000);
     }
@@ -79,6 +78,14 @@ int main(int argc, char *argv[])
             vm["input"].as<std::string>());
     // Run.
     Output output = run(instance, vm);
+    std::string isdom = "false";
+    if(vm.count("output")){
+        if(output.isDominatingSet(instance)){
+            isdom = "true" ;
+        }
+        output.to_csv(vm["output"].as<std::string>(),vm["input"].as<std::string>(),vm["algorithm"].as<std::string>(),isdom);
+    }
+    
     
     // Export the solution in a csv_file.
     output.exporter(vm);
