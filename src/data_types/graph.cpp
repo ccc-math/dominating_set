@@ -30,41 +30,52 @@ Graph::Graph(std::string filename){
     }
 
     vector<vector<int>> edges = {}; // the set of all edges (needed to find the number of edges which is not given in the instance files for some reasons)
-    int size = -1;
+    int size = 0;
     string line;
+    int has_read = 0;
+    int node1 = 0;
+    int node2 = 0;
     // Read a new line until EOF
     while (getline(file, line)) {
-        //std::cout<<"oi"<<std::endl;
-        // Split the line 
-        std::string node1 = "";
-        std::string node2 = "";
-        int cpt = 0;
+        std::stringstream s (line);
+        string word;
+        int word_count = 1;
+        
+        while(s >> word ){
+            switch(word_count){
+                case 1:
 
-        while(line[cpt] != ' '){
-            node1 = node1 + line[cpt];
-            cpt++;
+                    if(word.compare("p")!=0){
+                        node1 = stoi(word);
+                    }
+                    break;
+                case 2:
+
+                    if(has_read == 1){
+                        node2 = stoi(word);
+                        this->addEdge(node1, node2);
+                    }
+                    break;
+                case 3:
+                    numVertices = stoi(word);
+                    adjList.resize(numVertices, {});
+                    break;
+                case 4:                    
+
+                    NumEdges = stoi(word);
+                    has_read=1;
+                    break;
+            }
+            word_count++;
+            
         }
-        cpt++;
-        while(cpt < line.size()){
-            node2 = node2 + line[cpt];
-            cpt++;
-        }
-        int n1 = stoi(node1);
-        int n2 = stoi(node2);
-        if(max(n1, n2) > size){
-            size = max(n1, n2);
-        } 
-        edges.push_back({n1, n2});
+
+            
     }
+    
     // Close the file
     file.close();
     // We now construct the graph
-    size = size + 1;
-    numVertices = size;
-    adjList.resize(size, {});
-    for(int i = 0; i < edges.size(); i++){
-        this->addEdge(edges[i][0], edges[i][1]); // Note: names int the instance files start from 1, but our indices start from 0
-    } 
 };
 
 

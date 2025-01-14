@@ -7,7 +7,7 @@
 TEST(Graph,test1)
 {
     Graph G_1(10000);
-    Graph G_2("./data/project_instances/3.graph");
+    Graph G_2("../data/test_3.graph");
     G_1.addEdge(25,5000);
     EXPECT_EQ(G_1.hasEdge(25,5000),true);
     EXPECT_EQ(G_1.hasEdge(1,3600),false);
