@@ -21,6 +21,7 @@ class Output{
     void add(int e);
     void set_runtime(double time);
     double get_runtime();
+    void set_output(std::vector<int> vec);
     std::vector<int> get_set();    
     bool is_in_set(const int& e);
 };

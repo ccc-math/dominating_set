@@ -29,27 +29,10 @@ bool isDominatingSet(Graph G, std::vector<int> dom){
 }
 
 
-/*
-TEST(greedy,sandbox)
-{
-    std::string filename = "../data/project_instances/3.graph";
-    const Graph G(filename);
-    G.printGraph_console();
-    Output tmpG = smarterBucketsOfBucketsV2(G, {});
-    for(auto e : tmpG.get_set())
-        std::cout << e << std::endl; 
-    if(isDominatingSet(G, tmpG.get_set()))
-        std::cout << "yes" << std::endl;
-    else
-        std::cout << "no" << std::endl;
-}
-*/
-
-
 TEST(greedy,hidden_instances_Heap)
 {
     for(int i = 1; i <= 130; i++){ //130
-        std::string filename = "../data/pace_2016_instances/hidden/"+std::to_string(i)+".graph";
+        std::string filename = "../data/fvs_h_"+std::to_string(i)+".graph";
         const Graph G3(filename);
         Output tmpG3 = smarterGreedyHeapV2(G3);
 
@@ -69,7 +52,7 @@ TEST(greedy,public_instances_Heap)
         if(str.size() == 1){
             str = "00"+str;
         }
-        std::string filename = "../data/pace_2016_instances/public/"+str+".graph";
+        std::string filename = "../data/fvs_p_/"+str+".graph";
         const Graph G3(filename);
         Output tmpG3 = smarterGreedyHeapV2(G3);
 
@@ -80,7 +63,7 @@ TEST(greedy,public_instances_Heap)
 TEST(greedy,hidden_instances_Buckets)
 {
     for(int i = 1; i <= 130; i++){ //130
-        std::string filename = "../data/pace_2016_instances/hidden/"+std::to_string(i)+".graph";
+        std::string filename = "../data/fvs_h_"+std::to_string(i)+".graph";
         const Graph G3(filename);
         Output tmpG3 = smarterBucketsOfBucketsV2(G3, {});
 
@@ -100,7 +83,7 @@ TEST(greedy,public_instances_Buckets)
         if(str.size() == 1){
             str = "00"+str;
         }
-        std::string filename = "../data/pace_2016_instances/public/"+str+".graph";
+        std::string filename = "../data/fvs_p_/"+str+".graph"
         const Graph G3(filename);
         Output tmpG3 = smarterBucketsOfBucketsV2(G3, {});
 
@@ -112,9 +95,20 @@ TEST(greedy,public_instances_Buckets)
 TEST(greedy,hidden_instances_Large_Scale_Search)
 {
     for(int i = 1; i <= 130; i++){ //130
-        std::string filename = "../data/pace_2016_instances/hidden/"+std::to_string(i)+".graph";
+        std::string filename = "../data/fvs_h_"+std::to_string(i)+".graph";
         const Graph G3(filename);
-        Output tmpG3 = large_scale_search(G3, 10);
+        Output tmpG3 = large_scale_search(G3, 0.1);
+
+        EXPECT_EQ(isDominatingSet(G3, tmpG3.get_set()), true);
+    }
+}
+
+TEST(greedy,hidden_instances_Large_Scale_Search_weights)
+{
+    for(int i = 1; i <= 1; i++){ //130
+        std::string filename = "../data/fvs_h_"+std::to_string(i)+".graph";
+        const Graph G3(filename);
+        Output tmpG3 = large_scale_search(G3, 1.0, 0.99, 0.2, 10.0, 2.0);
 
         EXPECT_EQ(isDominatingSet(G3, tmpG3.get_set()), true);
     }

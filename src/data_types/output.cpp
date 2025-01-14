@@ -27,6 +27,11 @@ void Output::add(int e){
 
 }
 
+void Output::set_output(std::vector<int> vec){
+    dom = vec;
+    size = vec.size();
+}
+
 std::vector<int> Output::get_set(){
     return dom;
 }
