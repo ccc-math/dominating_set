@@ -33,3 +33,14 @@ TEST(Output,test)
 
 
 }
+
+TEST(Output,writing_to_file)
+{
+    Output O;
+    O.add(12);
+    O.to_file("../benchmark/test_benchmark.csv","test_algo","True");
+    O.add(15);
+    O.set_runtime(10.0);
+    O.to_file("../benchmark/test_benchmark.csv","test_algo","True");
+
+}

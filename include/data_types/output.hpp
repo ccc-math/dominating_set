@@ -4,9 +4,11 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <list>
 #include <algorithm>
+
 
 
 class Output{
@@ -23,6 +25,7 @@ class Output{
     double get_runtime();
     std::vector<int> get_set();    
     bool is_in_set(const int& e);
+    void to_file(std::string filepath,std::string instance,std::string algo, std::string instance);
 };
 
 #endif

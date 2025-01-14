@@ -29,6 +29,9 @@ Output run(
             //return smarterBucketsOfBuckets(instance);
         }
     }
+    if (algorithm == "genetic") {
+        return large_scale_search(instance,1000);
+    }
 
     if(algorithm == "milp"){
         const double time_limit = 10;
@@ -45,6 +48,7 @@ Output run(
                 "Unknown algorithm \"" + algorithm + "\".");
     }
 }
+
 
 int main(int argc, char *argv[])
 {
