@@ -35,6 +35,26 @@ bool Output::is_in_set(const int& e){
     return(it!=dom.end());
 }
 
+void Output::exporter(const boost::program_options::variables_map& vm) {
+    /*
+    * Add in csv file information about the algorithm in the following order :
+    * - name instance
+    * - size of the solution
+    * - solution
+    * - runtime of the algo
+    * - ?
+    */
+    std::string instance_name = vm["input"].as<std::string>();
+    std::string algo_name = vm["algorithm"].as<std::string>();
+    std::ofstream file;
+    file.open("../data/" + instance_name + "_" + algo_name + ".sol");
+    file << instance_name << ";" << size << "; {";
+    for (int i; i < size-1; i++) {
+        file << std::to_string(dom[i]) + ", ";
+    }
+    file << std::to_string(dom[size - 1]) + "} ;" << runtime << ";" << "\n";
+    file.close();
+
 void Output::to_file(std::string filepath,std::string instance,std::string algo, std::string isdom){
 
     // Open the file in write mode
