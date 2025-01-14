@@ -85,8 +85,6 @@ void Output::exporter(const boost::program_options::variables_map& vm) {
     file.close();
 }
 
-void Output::to_file(std::string filepath,std::string instance,std::string algo, std::string isdom){
-
     
 
 bool Output::isDominatingSet(const Graph& G){

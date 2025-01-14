@@ -17,3 +17,7 @@ test_benchmark,test_algo,True,2,10.000000
 test_benchmark,test_algo,True,1,0.000000
 test_benchmark,test_algo,True,2,10.000000
 ../data/fvs_h_10.graph,heap,true,1171,0.000000
+../data/fvs_h_10.graph,heap,true,1171,0.001171
+test_benchmark,test_algo,True,1,0.000000
+test_benchmark,test_algo,True,2,10.000000
+../data/fvs_h_10.graph,bucket,true,923,0.000813

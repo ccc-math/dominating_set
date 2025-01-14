@@ -25,7 +25,8 @@ Output run(
         return smarterGreedyHeapV2(instance);
     }
     if(algorithm == "bucket"){
-        //return smarterBucketsOfBuckets(instance);
+        std::vector<int> empty = {};
+        return smarterBucketsOfBucketsV2(instance,empty);
     }
     
     if (algorithm == "genetic") {
@@ -74,26 +75,20 @@ int main(int argc, char *argv[])
     }
 
     // Build instance.
+    std::cout<<"je suis là 1"<<std::endl;
     const Graph instance(
             vm["input"].as<std::string>());
     // Run.
+    std::cout<<"Je suis ici 2"<<std::endl;
     Output output = run(instance, vm);
     std::string isdom = "false";
     if(vm.count("output")){
         if(output.isDominatingSet(instance)){
             isdom = "true" ;
         }
+        std::cout<<"Par la bas 3"<<std::endl;
         output.to_csv(vm["output"].as<std::string>(),vm["input"].as<std::string>(),vm["algorithm"].as<std::string>(),isdom);
     }
-    
-    
-    // Export the solution in a csv_file.
-    output.exporter(vm);
-
-    std::cout << "size of the solution : " << output.get_size()<<std::endl;
-    std::cout << "Runtime of the algorithm : " << output.get_runtime() << " seconds." << std::endl;
-
-    
 
     return 0;
 }
