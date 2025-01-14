@@ -51,11 +51,9 @@ Output large_scale_search_with_weights(const Graph& G, const double &time, const
 	auto start = std::chrono::high_resolution_clock::now();
 	auto now = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> duration = now - start;
-
 	int n = G.getNumVertices();
 	std::vector<int> sol_containing_v(n, 0);
 	std::vector<int> size_of_sol_containing_v(n, 0);
-
 	std::srand(std::time(0));
 
 	std::vector<int>empty = {};
