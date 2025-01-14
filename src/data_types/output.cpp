@@ -35,7 +35,7 @@ bool Output::is_in_set(const int& e){
     return(it!=dom.end());
 }
 
-void Output::to_file(std::string filepath,std::string instance,std::string algo, std::string isdom){
+void Output::to_csv(std::string filepath,std::string instance,std::string algo, std::string isdom){
 
     // Open the file in write mode
     std::ofstream file(filepath,std::ios::app);
@@ -60,3 +60,25 @@ void Output::to_file(std::string filepath,std::string instance,std::string algo,
     file.close();
 
 }
+
+bool Output::isDominatingSet(const Graph& G){
+    std::vector<bool> isDominated = {};
+    for(int i = 0; i < G.getNumVertices(); i++){
+        isDominated.push_back(false);
+    }
+    for(int v : this->dom){
+
+        for(int nei : G.getNeighbours(v)){
+            
+            isDominated[nei] = true;
+        }
+        isDominated[v] = true;
+    }
+    for(bool b : isDominated){
+        if(!b){
+            return false;
+        }
+    }
+    return true;
+}
+

@@ -8,7 +8,7 @@
 #include <string>
 #include <list>
 #include <algorithm>
-
+#include <data_types/graph.hpp>
 
 
 class Output{
@@ -25,7 +25,8 @@ class Output{
     double get_runtime();
     std::vector<int> get_set();    
     bool is_in_set(const int& e);
-    void to_file(std::string filepath,std::string instance,std::string algo, std::string instance);
+    void to_csv(std::string filepath,std::string instance,std::string algo, std::string isdom);
+    bool isDominatingSet(const Graph &G);
 };
 
 #endif
