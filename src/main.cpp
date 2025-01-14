@@ -18,7 +18,7 @@ Output run(
         const Graph& instance,
         const po::variables_map& vm)
 {
-
+    double time_limit = vm["time-limit"].as<double>();
     // Run algorithm.
     std::string algorithm = vm["algorithm"].as<std::string>();
     if(algorithm == "heap"){
@@ -30,7 +30,11 @@ Output run(
     }
     
     if (algorithm == "genetic") {
-        return large_scale_search(instance,1000);
+        return large_scale_search(instance,time_limit);
+    }
+    if (algorithm == "wgenetic"){
+        return large_scale_search_with_weights(instance,time_limit, 0.99, 0.2, 10, 2);
+
     }
 
     if(algorithm == "milp"){
@@ -41,6 +45,7 @@ Output run(
         const double time_limit = 10;
         return cp_sat(instance, time_limit);
     }
+
     
 
  else {
@@ -57,9 +62,9 @@ int main(int argc, char *argv[])
     desc.add_options()
         ("help,h", "produce help message")
         ("algorithm,a", po::value<std::string>()->required(), "set algorithm (required)")
-        ("type,y",po::value<std::string>(),"set algorithm type for greedys")
         ("input,i", po::value<std::string>()->required(), "set input file (required)")
         ("output,o",po::value<std::string>(),"set output path")
+        ("time-limit,t",po::value<double>()->default_value(30.0),"set maximum computation time")
         ;
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -75,18 +80,15 @@ int main(int argc, char *argv[])
     }
 
     // Build instance.
-    std::cout<<"je suis là 1"<<std::endl;
     const Graph instance(
             vm["input"].as<std::string>());
     // Run.
-    std::cout<<"Je suis ici 2"<<std::endl;
     Output output = run(instance, vm);
     std::string isdom = "false";
     if(vm.count("output")){
         if(output.isDominatingSet(instance)){
             isdom = "true" ;
         }
-        std::cout<<"Par la bas 3"<<std::endl;
         output.to_csv(vm["output"].as<std::string>(),vm["input"].as<std::string>(),vm["algorithm"].as<std::string>(),isdom);
     }
 

@@ -89,7 +89,6 @@ Output large_scale_search_with_weights(const Graph& G, const double &time, const
 		}
 		now = std::chrono::high_resolution_clock::now();
 		duration = now - start;
-		std::cout << best_dom_size << " | " << last_dom.get_size() << " | " << cpt << std::endl;
 	}
 	best_dom.set_runtime(time);
 	return best_dom;

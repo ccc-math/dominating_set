@@ -110,7 +110,7 @@ TEST(greedy,hidden_instances_Large_Scale_Search_weights)
     for(int i = 10; i <= 10; i++){ //130
         std::string filename = "../data/fvs_h_"+std::to_string(i)+".graph";
         const Graph G3(filename);
-        Output tmpG3 = large_scale_search_with_weights(G3, 1.0, 0.99, 0.2, 10.0, 30.0);
+        Output tmpG3 = large_scale_search_with_weights(G3, 1.0, 0.99, 0.2, 10.0, 2.0);
 
         EXPECT_EQ(isDominatingSet(G3, tmpG3.get_set()), true);
     }
